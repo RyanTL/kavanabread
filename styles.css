@@ -1,0 +1,198 @@
+/* ==========================================================================
+   GLOBAL — Estilos globales de Kavana Bread
+   ========================================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+}
+
+
+/* ==========================================================================
+   INDEX — Página de inicio
+   ========================================================================== */
+
+/* Barra de navegación superior con enlace a crear cuenta */
+.nav-index {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 32px;
+}
+
+/* Estilo del enlace de navegación */
+.nav-index a {
+    text-decoration: none;
+    color: #496B5B;
+    font-size: 14px;
+    font-weight: 600;
+    transition: opacity 0.2s;
+}
+
+.nav-index a:hover {
+    opacity: 0.7;
+}
+
+
+/* ==========================================================================
+   CREAR CUENTA — Página de registro
+   ========================================================================== */
+
+/* Fondo verde centrado que envuelve la card */
+.body-crear-cuenta {
+    background-color: #496B5B;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Contenedor principal dividido en dos paneles: logo a la izquierda y formulario a la derecha */
+.card {
+    display: flex;
+    width: 780px;
+    min-height: 480px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+/* Panel izquierdo con fondo dorado que muestra el logo */
+.card-left {
+    background-color: #FDD179;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+.card-left img {
+    width: 220px;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Panel derecho blanco que contiene el formulario */
+.card-right {
+    background-color: #ffffff;
+    flex: 1.1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 48px 44px;
+}
+
+.card-right h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 28px;
+}
+
+/* Fila que coloca Nombre y Apellido en la misma línea */
+.form-row {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+}
+
+/* Campo de ancho completo usado para correo y contraseña */
+.form-group-full {
+    margin-bottom: 16px;
+}
+
+.form-group-full label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+}
+
+/* Wrapper que combina el ícono SVG y el input en una sola fila */
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    border: 1.5px solid #d4d4d4;
+    border-radius: 8px;
+    padding: 10px 12px;
+    gap: 8px;
+    transition: border-color 0.2s;
+}
+
+.input-wrapper:focus-within {
+    border-color: #3a5a40;
+}
+
+.input-wrapper svg {
+    flex-shrink: 0;
+    color: #9ca3af;
+}
+
+.input-wrapper input {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 14px;
+    color: #1a1a1a;
+    background: transparent;
+}
+
+.input-wrapper input::placeholder {
+    color: #b0b0b0;
+}
+
+/* Botón de envío del formulario */
+.btn-crear {
+    width: 100%;
+    padding: 14px;
+    background-color: #496B5B;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.2s;
+}
+
+.btn-crear:hover {
+    background-color: #2e4832;
+}
+
+/* Enlace al pie del formulario para usuarios que ya tienen cuenta */
+.login-link {
+    text-align: center;
+    margin-top: 14px;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.login-link a {
+    color: #3a5a40;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
