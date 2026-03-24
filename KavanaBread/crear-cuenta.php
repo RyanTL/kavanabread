@@ -91,29 +91,43 @@
    
 if (isset($_POST['btn-crear'])){
 
-
+     #Aqui estan los nombres de las tablas de login
      $username = mysqli_real_escape_string($conn, $_POST['username']);
      $lastname = mysqli_real_escape_string($conn, $_POST['lastname']);
      $email = mysqli_real_escape_string($conn, $_POST['email']);
      $password = mysqli_real_escape_string($conn, $_POST['password']);
-	
+
+     
+	#Esto es para cuando el usuario envie la contraseña en el folmulario la encripte
      $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         $check = mysqli_query($conn, "SELECT * FROM login WHERE email = '$email'");
+        #Esto verifica que si el ususario puso el mismo email que otro usuario le deja saber que ya existe ua cuenta con ese email
         if (mysqli_num_rows($check) > 0) {
         echo "<p style='text-align:center;'>Esta cuenta ya existe</p>";
-        echo "<p style='text-align:center;'>Si creo ya la cuenta por favor inicie seccion</p>";
+        echo "<p style='text-align:center;'>Si creo ya la cuenta con ese email por favor inicie seccion</p>";
         } else {
            
-
-	     $sql = "INSERT INTO login(username, lastname, email, password)
+         #Aqui añade los datos que el usuario puso para añadirla a la base de datos
+	     $sql_login = "INSERT INTO login(username, lastname, email, password)
 	     VALUES
          ('$username','$lastname','$email','$hashed_password')";
 
-	      if (mysqli_query($conn, $sql)) {
+         
+      
+	      if (mysqli_query($conn, $sql_login)) {
+
+          #Aqui crea el carro exclusivamente para cada usuario y se le guarden lo que tengan hay incluso si unden log out
+          $user_id = mysqli_insert_id($conn);
+          $sql_cart = "INSERT INTO cart(user_id, status)
+	     VALUES
+         ('$user_id' , 'active')";
+         mysqli_query($conn, $sql_cart);
+
            echo "<p style='text-align:center;'>Cuenta creada con exito</p>";
            echo "<p style='text-align:center;'>Ahora puede iniciar seccion</p>";
            
         } else {
+            #Esto le deja saber que hubo un error al usuario al crear la cuenta por si la conexion falla o algo
           echo "Error al crear cuenta intentelo de nuevo";
         }
 

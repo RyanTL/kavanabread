@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2026 at 06:56 PM
+-- Generation Time: Mar 24, 2026 at 06:36 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -20,6 +20,26 @@ SET time_zone = "+00:00";
 --
 -- Database: `kavanabread`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cart`
+--
+
+DROP TABLE IF EXISTS `cart`;
+CREATE TABLE `cart` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `status` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`id`, `user_id`, `status`) VALUES
+(12, 41, 'active');
 
 -- --------------------------------------------------------
 
@@ -41,8 +61,7 @@ CREATE TABLE `login` (
 --
 
 INSERT INTO `login` (`user_id`, `username`, `lastname`, `email`, `password`) VALUES
-(21, 'michi', 'neenen', 'jidijeiedi@gmail.com', '$2y$10$lURTdfNxXApdW8SEdW2seOQ./L97WAu7pvcEcMeMowp0LuSQb9NKa'),
-(24, 'michi', 'neenen', 'mmm@jjfjj.com', '$2y$10$DsAuq5OqnlxOzsrpChiYr.wGYf3Kc.AzmIf9xiMGAcCSheok0fqFS');
+(41, 'kkrkrkrkrknek', 'krkrkrk', 'rrrr@gmail.com', '$2y$10$XM5B.9Z3/lf7b38NEypuTOkiZHzs2eNC4gPrmONuti3.WwMXFJ6.S');
 
 -- --------------------------------------------------------
 
@@ -77,6 +96,14 @@ INSERT INTO `products` (`Product_ID`, `Product_Name`, `Price`, `Quantity`) VALUE
 --
 
 --
+-- Indexes for table `cart`
+--
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `user_id_2` (`user_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- Indexes for table `login`
 --
 ALTER TABLE `login`
@@ -94,16 +121,32 @@ ALTER TABLE `products`
 --
 
 --
+-- AUTO_INCREMENT for table `cart`
+--
+ALTER TABLE `cart`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
   MODIFY `Product_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `cart`
+--
+ALTER TABLE `cart`
+  ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `login` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
