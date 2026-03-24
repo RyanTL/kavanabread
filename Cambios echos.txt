@@ -3,4 +3,8 @@ Aqui dejo el create account conectado ya a la base de datos y le añadi a la bas
 
 Aun me faltan mas tablas la base no esta al 100 terminada aun 
 
-estare subiendo cambios proximamente 
+estare subiendo mas cambios y añadiendo mas tablas a la base proximamente
+
+
+Cualquier cosa me dejan saber 
+ATTE. Kelvin Acosta
