@@ -10,4 +10,5 @@ estare subiendo cambios proximamente
 
 3/27/26
 Añadi otra tabla llamada cat_items que es en donde los clientes posran añadir productos en su propio carro de compras y haci no se junten con otros productos de otros clientes
- 
+
+ Cree una pagina de admin para poder añadir, ver productos, cambios de precio, ver ordenes acivas, ver usuarios. Aun me falta por terminarla pero el diseño que por ahora tiene es el mismo de crear cuentas.

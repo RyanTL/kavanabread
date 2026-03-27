@@ -175,10 +175,27 @@ body {
     transition: background-color 0.2s;
 }
 
+
 .btn-crear:hover {
     background-color: #2e4832;
 }
 
+.btn-inventario {
+    width: 100%;
+    padding: 14px;
+    background-color: #496B5B;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.2s;
+}
+.btn-inventario:hover {
+    background-color: #2e4832;
+}
 /* Enlace al pie del formulario para usuarios que ya tienen cuenta */
 .login-link {
     text-align: center;
