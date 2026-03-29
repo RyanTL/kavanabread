@@ -4,8 +4,8 @@
                  session_start(); 
                 }
 $servername = "localhost";
-$username = "kavanaAdmin";
-$password = "nBcA4)Qc3DE8T_vd";
+$username = "root";
+$password = "";
 $dbname = "kavanabread";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
