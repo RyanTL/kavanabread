@@ -39,9 +39,9 @@
 
         
 
-               <button type="submit" name="btn-inventario" class="btn-crear">Manejar Inventario</button>
+               <button type="submit" name="btn-inventario" class="btn-inventario">Manejar Inventario</button>
 
-                 <button type="submit" name="btn-crear" class="btn-crear">Ver ordenes</button>
+                 <button type="submit" name="btn-ordenes" class="btn-ordenes">Ver ordenes</button>
                    <button type="submit" name="btn-crear" class="btn-crear">Ver Cuentas</button>
                      <button type="submit" name="btn-crear" class="btn-crear">Log</button>
 

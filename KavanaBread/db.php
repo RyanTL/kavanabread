@@ -4,6 +4,8 @@
                  session_start(); 
                 }
 $servername = "localhost";
+$username = "kavanaAdmin";
+$password = "nBcA4)Qc3DE8T_vd";
 $username = "root";
 $password = "";
 $dbname = "kavanabread";
@@ -16,6 +18,3 @@ if (mysqli_connect_error())
   }
   #Esta en banco por el momento pero sesupone que hiba conected to the database haci que si no les sale en la pagina se concecto corrctamente
   echo "";
-
-
-  ?>
