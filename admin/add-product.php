@@ -3,6 +3,28 @@ if (session_status() == PHP_SESSION_NONE) session_start();
 if (!isset($_SESSION['username'])) { header("Location: login.php"); exit; }
 include(__DIR__ . '/../config/db.php');
 ?>
+
+<?php
+#Para añadir productos
+if (isset($_POST['Añadir'])) {
+    $id = intval($_POST['id']);
+    $nombre = $_POST['nombre'];
+    $precio = floatval($_POST['precio']);
+    $cantidad = intval($_POST['cantidad']);
+
+    $sql = "INSERT INTO products(Product_Name, Price, Quantity)
+            VAlUES ('$nombre', '$precio', '$cantidad')";
+
+            $conn->query($sql);
+
+            header("Location: panel.php");
+            exit();
+
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -83,7 +105,7 @@ include(__DIR__ . '/../config/db.php');
                 </div>
                 <div class="admin-form-actions">
                     <a href="panel.php" class="btn-secondary">Cancelar</a>
-                    <button type="submit" class="btn-primary">
+                    <button type="submit" name="Añadir" class="btn-primary">
                         <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                         Guardar Producto
                     </button>

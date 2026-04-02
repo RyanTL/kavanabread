@@ -8,6 +8,47 @@ $sql = "SELECT * FROM products WHERE Product_ID = $id";
 $result = mysqli_query($conn, $sql);
 $product = mysqli_fetch_assoc($result);
 ?>
+
+
+<?php
+#Para editar productos
+if (isset($_POST['Editar'])) {
+    $id = intval($_POST['id']);
+    $nombre = $_POST['nombre'];
+    $precio = floatval($_POST['precio']);
+    $cantidad = intval($_POST['cantidad']);
+
+    $sql = "UPDATE products
+            SET Product_Name= '$nombre', Price='$precio', Quantity='$cantidad'
+            WHERE Product_ID=$id";
+
+            $conn->query($sql);
+
+
+            header("Location: panel.php");
+            exit();
+
+}
+?>
+
+<?php
+if (isset($_POST['Delete'])) {
+   #Para eliminar un producto
+
+     $id = intval($_POST['id']);
+    $sql = "DELETE FROM products
+            WHERE Product_ID=$id";
+            $conn->query($sql);
+
+            header("Location: panel.php");
+            exit();
+
+}
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -97,14 +138,14 @@ $product = mysqli_fetch_assoc($result);
                     <form method="POST" action="edit-product.php" onsubmit="return confirm('¿Seguro que quieres eliminar este producto?')" style="margin:0;">
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="id" value="<?php echo $id; ?>">
-                        <button type="submit" class="btn-danger">
+                        <button type="submit" name="Delete" class="btn-danger">
                             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
                             Eliminar
                         </button>
                     </form>
                     <div class="form-actions-right">
                         <a href="panel.php" class="btn-secondary">Cancelar</a>
-                        <button type="submit" class="btn-primary">
+                        <button type="submit" name="Editar" class="btn-primary">
                             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                             Guardar Cambios
                         </button>
