@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 31, 2026 at 03:08 AM
+-- Generation Time: Apr 10, 2026 at 12:43 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `kavanabread`
 --
+CREATE DATABASE IF NOT EXISTS `kavanabread` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `kavanabread`;
 
 -- --------------------------------------------------------
 
@@ -27,6 +29,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `cart`
 --
 
+DROP TABLE IF EXISTS `cart`;
 CREATE TABLE `cart` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -43,7 +46,8 @@ INSERT INTO `cart` (`id`, `user_id`, `status`) VALUES
 (14, 43, 'active'),
 (15, 44, 'active'),
 (16, 45, 'active'),
-(17, 46, 'active');
+(17, 46, 'active'),
+(18, 47, 'active');
 
 -- --------------------------------------------------------
 
@@ -51,6 +55,7 @@ INSERT INTO `cart` (`id`, `user_id`, `status`) VALUES
 -- Table structure for table `cart_products`
 --
 
+DROP TABLE IF EXISTS `cart_products`;
 CREATE TABLE `cart_products` (
   `cart_id` int(11) NOT NULL,
   `id` int(11) NOT NULL,
@@ -64,6 +69,7 @@ CREATE TABLE `cart_products` (
 -- Table structure for table `login`
 --
 
+DROP TABLE IF EXISTS `login`;
 CREATE TABLE `login` (
   `user_id` int(11) NOT NULL,
   `username` varchar(20) NOT NULL,
@@ -82,7 +88,27 @@ INSERT INTO `login` (`user_id`, `username`, `lastname`, `email`, `password`) VAL
 (43, 'wdwdkwdkwdk', 'msmfdkmkdcmd', 'mmm@gmail.com', '$2y$10$IOqGuDwpbE64deAaqH9tSOK2PrqRtM18qwzwLFe7OaSXQMWVL1SpS'),
 (44, 'admin', 'admin', 'admin@admin.com', '$2y$10$hgEhI3MP3fUsI6qaGxHUQeK6GgkZVSywGUFsOZ/1lM7pqrqHkkvNC'),
 (45, 'ekekeke', 'kekeke', 'mm2@gmail.com', '$2y$10$w4gUsK0CgGXB8C/YmwssreriyH/X9hJE.T9TbDXxjJCsTMibM5APa'),
-(46, 'nininin ', 'jdjdjj', 'ggg@gmail.com', '$2y$10$0PBzlDDlMulw8biUue0uVOn7pBq2t3X10IHHPWsf1DwXouc.kQ5si');
+(46, 'nininin ', 'jdjdjj', 'ggg@gmail.com', '$2y$10$0PBzlDDlMulw8biUue0uVOn7pBq2t3X10IHHPWsf1DwXouc.kQ5si'),
+(47, 'juan', 'garcia', 'juan@gmail.com', '$2y$10$KIPulcT9QJIZSQgILMCaUumQYC7.cX8jHe.HdN2E6ugOWD8WmJipi');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `loginadmins`
+--
+
+DROP TABLE IF EXISTS `loginadmins`;
+CREATE TABLE `loginadmins` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `loginadmins`
+--
+
+INSERT INTO `loginadmins` (`id`, `user_id`) VALUES
+(1, 44);
 
 -- --------------------------------------------------------
 
@@ -90,6 +116,7 @@ INSERT INTO `login` (`user_id`, `username`, `lastname`, `email`, `password`) VAL
 -- Table structure for table `products`
 --
 
+DROP TABLE IF EXISTS `products`;
 CREATE TABLE `products` (
   `Product_ID` int(11) NOT NULL,
   `Product_Name` varchar(50) NOT NULL,
@@ -102,7 +129,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`Product_ID`, `Product_Name`, `Price`, `Quantity`) VALUES
-(1, 'Pan Sobao', 1.00, 1),
+(1, 'Pan Sobao', 1.25, 15),
 (2, 'Pan Criollo', 2.09, 1),
 (3, 'Baguette', 2.00, 1),
 (4, 'Croissant', 2.00, 1),
@@ -110,7 +137,8 @@ INSERT INTO `products` (`Product_ID`, `Product_Name`, `Price`, `Quantity`) VALUE
 (6, 'Muffin', 2.00, 1),
 (7, 'Honeybun', 2.00, 1),
 (8, 'Pan Sobao integral', 2.99, 1),
-(9, 'Donas Regulares', 2.50, 15);
+(9, 'Donas Regulares', 2.50, 15),
+(12, 'Dona rellenas', 1.50, 10);
 
 --
 -- Indexes for dumped tables
@@ -140,6 +168,13 @@ ALTER TABLE `login`
   ADD UNIQUE KEY `email` (`email`);
 
 --
+-- Indexes for table `loginadmins`
+--
+ALTER TABLE `loginadmins`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
@@ -153,7 +188,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `cart_products`
@@ -165,13 +200,19 @@ ALTER TABLE `cart_products`
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+
+--
+-- AUTO_INCREMENT for table `loginadmins`
+--
+ALTER TABLE `loginadmins`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `Product_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `Product_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
@@ -189,6 +230,12 @@ ALTER TABLE `cart`
 ALTER TABLE `cart_products`
   ADD CONSTRAINT `cart_products_ibfk_1` FOREIGN KEY (`id`) REFERENCES `cart` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `cart_products_ibfk_2` FOREIGN KEY (`Product_ID`) REFERENCES `products` (`Product_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `loginadmins`
+--
+ALTER TABLE `loginadmins`
+  ADD CONSTRAINT `loginadmins_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `login` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
