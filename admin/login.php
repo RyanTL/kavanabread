@@ -47,8 +47,7 @@
                 </div>
 
                 <button type="submit" name="btn-login" class="btn-crear">Login</button>
-
-                <?php
+            <?php
                 if (session_status() == PHP_SESSION_NONE) session_start();
 
                 include(__DIR__ . '/../config/db.php');
@@ -58,21 +57,38 @@
                      $email = mysqli_real_escape_string($conn, $_POST['email']);
                      $password = mysqli_real_escape_string($conn, $_POST['password']);
 
+                     #Esto se encarga de desirle al usuario que debe de poner el email y la contaseña
+                    if (empty($email) || empty($password)) {
+                     echo '<div class="alert alert-danger">Favor de introducir el email y la contraseña</div>';
+                    return;}
                     #Esto verifica si el email existe o no para iniciar sesion
                     $stmt = $conn->prepare("SELECT * FROM login WHERE email=?");
                     $stmt->bind_param("s", $email);
                     $stmt->execute();
 
-                    $resoult = $stmt->get_result();
-                    $user = $resoult->fetch_assoc();
+                    $result = $stmt->get_result();
+                    $user = $result->fetch_assoc();
 
-                    if ($user && password_verify($password, $user['password'])) {
+                   if ($user && password_verify($password, $user['password'])) {
 
-                        $_SESSION['id'] = $user["id"];
+                        $_SESSION['id'] = $user["user_id"];
                         $_SESSION['email'] = $user['email'];
                         $_SESSION['username'] = $user['username'];
-                        header("Location: panel.php");
-                        exit();
+                        #Esto se encarga de verificar si el usuario es admin o no
+                    $stmt2 = $conn->prepare("SELECT * FROM loginadmins WHERE user_id=?");
+                    $stmt2->bind_param("i", $user['user_id']);
+                    $stmt2->execute();
+                    $adminResult = $stmt2->get_result();
+                        if($adminResult->num_rows > 0){
+                            $_SESSION['is_admin'] = true;
+                            header("Location: panel.php");
+                            exit();
+                        } else {
+                            $_SESSION['is_admin'] = false;
+                              die("<h1>No eres admin</h1><p>Tus credenciales son correctas, pero no tienes permiso para entrar al panel de administrador.</p><a href='login.php'>Volver</a>"); 
+                              exit();
+                        }
+
 
                     } else {
                         echo "<p style='text-align:center;'>Correo o contraseña incorrectos</p>";
