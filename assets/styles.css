@@ -468,10 +468,6 @@ body {
     font-weight: 600;
 }
 
-.qty-badge.qty-low {
-    background-color: #f0f0ec;
-    color: #4b5563;
-}
 
 /* --- Edit button --- */
 
@@ -492,6 +488,20 @@ body {
     border-color: #496B5B;
     background-color: #496B5B;
     color: #ffffff;
+}
+
+/* --- Email column --- */
+
+.td-email {
+    font-size: 13px;
+    color: #6b7280;
+}
+
+/* --- Small danger button for table rows --- */
+
+.btn-danger-sm {
+    padding: 6px 12px;
+    font-size: 12px;
 }
 
 /* --- Empty state --- */
