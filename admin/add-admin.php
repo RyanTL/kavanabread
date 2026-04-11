@@ -1,6 +1,37 @@
 <?php
 if (session_status() == PHP_SESSION_NONE) session_start();
 if (!isset($_SESSION['username'])) { header("Location: login.php"); exit; }
+include(__DIR__ . '/../config/db.php');
+?>
+
+
+<?php
+#Para añadir usuarios admins
+if (isset($_POST['Añadir'])) {
+    $username = $_POST['nombre'];
+    $lastname = $_POST['apellido'];
+    $email = $_POST['email'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    // aqui añadira un usuario nuevo a admin desde 0
+    $stmt = $conn->prepare("INSERT INTO login(username, lastname, email, password)
+            VAlUES (?, ?, ?, ?)");
+    $stmt->bind_param("ssss", $username, $lastname, $email, $password);
+    $stmt->execute();
+    
+    // Esto obtiene el id de la cuenta que se creara en el adminpanel para añadirla a loginadmin
+    $user_id = $conn->insert_id;
+
+    $stmt2  = $conn->prepare("INSERT INTO loginadmins(user_id)
+            VAlUES (?)");
+    $stmt2->bind_param("i", $user_id);
+    $stmt2->execute();
+            header("Location: panel.php");
+            exit();
+
+}
+
+
+
 ?>
 
 <!DOCTYPE html>
