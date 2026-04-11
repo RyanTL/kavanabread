@@ -6,6 +6,17 @@ if (!isset($_SESSION['username'])) {
 }
 include(__DIR__ . '/../config/db.php');
 ?>
+
+ <?php 
+ #Esto hace la funcion de borrar el usuario por completo
+            if(isset($_POST['delete'])){
+                $user_id = intval($_POST['user_id']);
+                  $stmt = $conn->prepare( "DELETE FROM login
+                                           WHERE user_id=?");
+                  $stmt->bind_param("i", $user_id);
+                  $stmt->execute();
+            }
+            ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -89,6 +100,7 @@ include(__DIR__ . '/../config/db.php');
                         </tr>
                     </thead>
                     <tbody>
+                          <!-- Esto muestra los productos  -->
                         <?php
                         $sql = "SELECT * FROM products";
                         $result = mysqli_query($conn, $sql);
@@ -138,7 +150,7 @@ include(__DIR__ . '/../config/db.php');
                     Añadir Admin
                 </a>
             </div>
-
+           
             <div class="content-card">
                 <table class="admin-table">
                     <thead>
@@ -150,15 +162,38 @@ include(__DIR__ . '/../config/db.php');
                         </tr>
                     </thead>
                     <tbody>
+                         <!-- Esto es para mostrar el id y nombre, email a la tabla  -->
+                         <?php
+                         $sql = "SELECT la.id AS admin_id, l.user_id, l.username, l.email 
+                        FROM loginadmins la
+                        JOIN login l ON la.user_id = l.user_id";
+                        $result = mysqli_query($conn, $sql);
+                        
+                        while($show = mysqli_fetch_array($result)) { ?>
                         <tr>
-                            <td class="td-id">#1</td>
-                            <td class="td-name"><?php echo htmlspecialchars($_SESSION['username']); ?></td>
-                            <td class="td-email"><?php echo htmlspecialchars($_SESSION['email']); ?></td>
-                            <td class="td-actions">
-                                <button type="button" class="btn-danger btn-danger-sm">
+                            <td class="td-id">#<?php echo $show['admin_id']; ?></td>
+                            <td class="td-name"><?php echo htmlspecialchars($show['username']); ?></td>
+                             <td class="td-id"><?php echo $show['email']; ?></td>
+                                
+
+
+                            <td>
+                                 <!-- Esto es para borrar el usuario por completo -->
+                          <form method="POST">
+                            <input type="hidden" name="user_id" value="<?php echo $show['user_id'];?>">
+                            
+                            <button type="submit" name="delete" class="btn-danger btn-danger-sm">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
                                     Eliminar
-                                </button>
+                                </button></form>
+                            </td>
+
+                            </td>
+                           
+                        </tr>
+                        
+                        <?php } ?>
+                              
                             </td>
                         </tr>
                     </tbody>
