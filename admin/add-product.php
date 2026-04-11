@@ -7,23 +7,20 @@ include(__DIR__ . '/../config/db.php');
 <?php
 #Para añadir productos
 if (isset($_POST['Añadir'])) {
-    $id = intval($_POST['id']);
     $nombre = $_POST['nombre'];
     $precio = floatval($_POST['precio']);
     $cantidad = intval($_POST['cantidad']);
 
-    $sql = "INSERT INTO products(Product_Name, Price, Quantity)
-            VAlUES ('$nombre', '$precio', '$cantidad')";
+ $stmt = $conn->prepare("INSERT INTO products(Product_Name, Price, Quantity)
+            VAlUES (?, ?, ?)");
 
-            $conn->query($sql);
-
+    $stmt->bind_param("sdi", $nombre, $precio, $cantidad);
+    $stmt->execute();
             header("Location: panel.php");
             exit();
 
 }
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="es">
@@ -129,6 +126,9 @@ if (isset($_POST['Añadir'])) {
             <span>Salir</span>
         </a>
     </nav>
+
+</body>
+</html>
 
 </body>
 </html>
