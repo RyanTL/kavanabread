@@ -9,7 +9,6 @@ $result = mysqli_query($conn, $sql);
 $product = mysqli_fetch_assoc($result);
 ?>
 
-
 <?php
 #Para editar productos
 if (isset($_POST['Editar'])) {
@@ -18,14 +17,12 @@ if (isset($_POST['Editar'])) {
     $precio = floatval($_POST['precio']);
     $cantidad = intval($_POST['cantidad']);
 
-    $sql = "UPDATE products
-            SET Product_Name= '$nombre', Price='$precio', Quantity='$cantidad'
-            WHERE Product_ID=$id";
-
-            $conn->query($sql);
-
-
-            header("Location: panel.php");
+ $stmt = $conn->prepare("UPDATE products
+ SET Product_Name= ?, Price= ?, Quantity= ?
+            WHERE Product_ID= ?");
+    $stmt->bind_param("sdii", $nombre, $precio, $cantidad, $id);
+    $stmt->execute();
+           header("Location: panel.php");
             exit();
 
 }
@@ -34,20 +31,17 @@ if (isset($_POST['Editar'])) {
 <?php
 if (isset($_POST['Delete'])) {
    #Para eliminar un producto
-
-     $id = intval($_POST['id']);
-    $sql = "DELETE FROM products
-            WHERE Product_ID=$id";
-            $conn->query($sql);
-
-            header("Location: panel.php");
+   
+$id = intval($_POST['id']);
+$stmt = $conn->prepare("DELETE FROM products
+            WHERE Product_ID= ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+           header("Location: panel.php");
             exit();
 
 }
 ?>
-
-
-
 
 <!DOCTYPE html>
 <html lang="es">
@@ -173,3 +167,4 @@ if (isset($_POST['Delete'])) {
 
 </body>
 </html>
+
