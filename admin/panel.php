@@ -94,6 +94,7 @@ include(__DIR__ . '/../config/db.php');
                         <tr>
                             <th>ID</th>
                             <th>Producto</th>
+                            <th>Categoria</th>
                             <th>Precio</th>
                             <th>Cantidad</th>
                             <th>Acciones</th>
@@ -102,12 +103,15 @@ include(__DIR__ . '/../config/db.php');
                     <tbody>
                           <!-- Esto muestra los productos  -->
                         <?php
-                        $sql = "SELECT * FROM products";
+                        $sql = "SELECT products.*, category.name AS category_name
+                         FROM products
+                         JOIN category ON products.category_ID = category.category_ID";
                         $result = mysqli_query($conn, $sql);
                         while($show = mysqli_fetch_array($result)) { ?>
                         <tr>
                             <td class="td-id">#<?php echo $show['Product_ID']; ?></td>
                             <td class="td-name"><?php echo htmlspecialchars($show['Product_Name']); ?></td>
+                             <td class="td-category_name"><?php echo htmlspecialchars($show['category_name']); ?></td>
                             <td class="td-price">$<?php echo $show['Price']; ?></td>
                             <td class="td-qty">
                                 <span class="qty-badge <?php echo ($show['Quantity'] < 5) ? 'qty-low' : ''; ?>">
