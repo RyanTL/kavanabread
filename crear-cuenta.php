@@ -2,6 +2,11 @@
 // Página de crear cuenta
 ?>
 <!DOCTYPE html>
+<!--
+ * Autor Frontend: Ryan Torres Lugo
+ * Autor Backend: Kelvin Acosta
+ * Proyecto: KavanaBread
+ -->
 <html lang="es">
 <head>
     <meta charset="UTF-8">
