@@ -1,4 +1,9 @@
 <?php
+/*
+ * Autor Frontend: Ryan Torres Lugo
+ * Autor Backend: Kelvin Acosta
+ * Proyecto: KavanaBread
+ */
 if (session_status() == PHP_SESSION_NONE) session_start();
 if (!isset($_SESSION['username'])) {
     header("Location: login.php");
