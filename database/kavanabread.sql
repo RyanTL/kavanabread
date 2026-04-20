@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 13, 2026 at 07:06 PM
+-- Generation Time: Apr 20, 2026 at 05:23 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -103,7 +103,8 @@ INSERT INTO `login` (`user_id`, `username`, `lastname`, `email`, `password`) VAL
 (44, 'admin', 'admin', 'admin@admin.com', '$2y$10$hgEhI3MP3fUsI6qaGxHUQeK6GgkZVSywGUFsOZ/1lM7pqrqHkkvNC'),
 (45, 'ekekeke', 'kekeke', 'mm2@gmail.com', '$2y$10$w4gUsK0CgGXB8C/YmwssreriyH/X9hJE.T9TbDXxjJCsTMibM5APa'),
 (46, 'nininin ', 'jdjdjj', 'ggg@gmail.com', '$2y$10$0PBzlDDlMulw8biUue0uVOn7pBq2t3X10IHHPWsf1DwXouc.kQ5si'),
-(49, 'michiru', 'mi', 'michi@gmail.com', '$2y$10$DjVjkWEH803B4o3bQ88waOOivpTT/6EbqT04pqD6T0ttLNlAMRo2u');
+(49, 'michiru', 'mi', 'michi@gmail.com', '$2y$10$DjVjkWEH803B4o3bQ88waOOivpTT/6EbqT04pqD6T0ttLNlAMRo2u'),
+(50, 'Krystal', 'Bracero', 'Kavanabread@gmail.com', '$2y$10$fsokEvtwIwVGkdlzbrBpr.0/5SU8pBNtxHzq0exabb32Ts.nhLIKS');
 
 -- --------------------------------------------------------
 
@@ -122,7 +123,8 @@ CREATE TABLE `loginadmins` (
 
 INSERT INTO `loginadmins` (`id`, `user_id`) VALUES
 (1, 44),
-(4, 49);
+(4, 49),
+(5, 50);
 
 -- --------------------------------------------------------
 
@@ -143,17 +145,21 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`Product_ID`, `Product_Name`, `category_ID`, `Price`, `Quantity`) VALUES
-(1, 'Pan Sobao', 1, 1.25, 15),
-(2, 'Pan Criollo', 1, 2.09, 15),
-(3, 'Baguette', 1, 2.00, 1),
-(4, 'Croissant', 1, 2.00, 1),
-(5, 'Dounut', 3, 2.00, 1),
-(6, 'Muffin', 3, 2.00, 1),
-(7, 'Honeybun', 3, 2.00, 1),
-(8, 'Pan Sobao integral', 1, 2.99, 1),
-(9, 'Donas Regulares', 3, 2.50, 15),
-(12, 'Dona rellenas', 3, 1.50, 10),
-(13, 'Dona con canela', 3, 2.20, 25);
+(1, 'Pan Blanco', 1, 1.25, 15),
+(2, 'Pan de Semillas', 1, 2.09, 15),
+(3, 'Pan de Canela y Pasas', 1, 2.00, 1),
+(4, 'Pan de Curcuma', 1, 2.00, 1),
+(5, 'Pan de Avena y Miel', 1, 2.00, 1),
+(6, 'Mantequilla fresca', 2, 6.00, 1),
+(7, 'Jalea de Fresa', 2, 5.00, 1),
+(8, 'Jalea de Blueberry', 2, 5.00, 1),
+(9, 'Mantequilla Cilantro (3oz)', 2, 5.00, 15),
+(12, 'Mantequilla Cilantro (8oz)', 2, 12.00, 10),
+(13, 'Nueces y Almendras con Caramelo', 2, 5.00, 25),
+(16, 'Nueces y Almendras con Caramelo', 3, 5.00, 1),
+(17, 'Cocacha Pan Italiano', 3, 8.00, 1),
+(18, 'Tiavaca(4)', 3, 6.00, 1),
+(19, 'Granola mix masa madre', 3, 5.00, 1);
 
 --
 -- Indexes for dumped tables
@@ -228,19 +234,19 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `loginadmins`
 --
 ALTER TABLE `loginadmins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `Product_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `Product_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Constraints for dumped tables
