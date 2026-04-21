@@ -39,7 +39,7 @@
                                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
                                 <circle cx="12" cy="7" r="4"/>
                             </svg>
-                            <input type="text" id="username" name="username" placeholder="Juan">
+                            <input type="text" id="username" name="username" placeholder="Juan" required minlength="2" maxlength="50">
                         </div>
                     </div>
 
@@ -50,7 +50,7 @@
                                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
                                 <circle cx="12" cy="7" r="4"/>
                             </svg>
-                            <input type="text" id="lastname" name="lastname" placeholder="Garcia">
+                            <input type="text" id="lastname" name="lastname" placeholder="Garcia" required minlength="2" maxlength="50">
                         </div>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                             <rect x="2" y="4" width="20" height="16" rx="2"/>
                             <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
                         </svg>
-                        <input type="email" id="email" name="email" placeholder="juan@ejemplo.com">
+                        <input type="email" id="email" name="email" placeholder="juan@ejemplo.com" required maxlength="100">
                     </div>
                 </div>
 
@@ -75,7 +75,7 @@
                             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
                             <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                         </svg>
-                        <input type="password" id="password" name="password" placeholder="Mín. 8 caracteres">
+                        <input type="password" id="password" name="password" placeholder="Mín. 8 caracteres" required minlength="8" maxlength="100">
                     </div>
                 </div>
 
@@ -90,10 +90,38 @@
 if (isset($_POST['btn-crear'])){
 
      #Aqui estan los nombres de las tablas de login
-     $username = mysqli_real_escape_string($conn, $_POST['username']);
-     $lastname = mysqli_real_escape_string($conn, $_POST['lastname']);
-     $email = mysqli_real_escape_string($conn, $_POST['email']);
-     $password = mysqli_real_escape_string($conn, $_POST['password']);
+     $username = trim($_POST['username'] ?? '');
+     $lastname = trim($_POST['lastname'] ?? '');
+     $email    = trim($_POST['email'] ?? '');
+     $password = $_POST['password'] ?? '';
+
+     #Validacion de los campos antes de crear la cuenta
+     $errors = [];
+     if ($username === '' || $lastname === '' || $email === '' || $password === '') {
+         $errors[] = "Todos los campos son obligatorios";
+     }
+     if ($username !== '' && mb_strlen($username) < 2) {
+         $errors[] = "El nombre debe tener al menos 2 caracteres";
+     }
+     if ($lastname !== '' && mb_strlen($lastname) < 2) {
+         $errors[] = "El apellido debe tener al menos 2 caracteres";
+     }
+     if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+         $errors[] = "El correo electronico no es valido";
+     }
+     if ($password !== '' && strlen($password) < 8) {
+         $errors[] = "La contraseña debe tener al menos 8 caracteres";
+     }
+
+     if (!empty($errors)) {
+         foreach ($errors as $err) {
+             echo "<p style='text-align:center; color:#b91c1c;'>" . htmlspecialchars($err) . "</p>";
+         }
+     } else {
+
+     $username = mysqli_real_escape_string($conn, $username);
+     $lastname = mysqli_real_escape_string($conn, $lastname);
+     $email    = mysqli_real_escape_string($conn, $email);
 
      #Esto es para cuando el usuario envie la contraseña en el formulario la encripte
      $hashed_password = password_hash($password, PASSWORD_DEFAULT);
@@ -126,6 +154,7 @@ if (isset($_POST['btn-crear'])){
         }
 
        }
+        }
         }
           ?>
 

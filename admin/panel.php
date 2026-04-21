@@ -28,7 +28,7 @@ include(__DIR__ . '/../config/db.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin – Kavana Bread</title>
-    <link rel="stylesheet" href="../assets/styles.css">
+    <link rel="stylesheet" href="/kavanabread/assets/styles.css">
 </head>
 <body class="admin-layout">
 
@@ -87,10 +87,16 @@ include(__DIR__ . '/../config/db.php');
                     <h1>Inventario</h1>
                     <p class="tab-subtitle">Gestiona tus productos</p>
                 </div>
-                <a href="add-product.php" class="btn-primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                    Añadir Producto
-                </a>
+                <div style="display:flex; gap:10px;">
+                    <a href="manage-categories.php" class="btn-secondary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M3 12h18"/><path d="M3 18h18"/></svg>
+                        Gestionar Categorias
+                    </a>
+                    <a href="add-product.php" class="btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        Añadir Producto
+                    </a>
+                </div>
             </div>
 
             <div class="content-card">
@@ -110,7 +116,7 @@ include(__DIR__ . '/../config/db.php');
                         <?php
                         $sql = "SELECT products.*, category.name AS category_name
                          FROM products
-                         JOIN category ON products.category_ID = category.category_ID";
+                         LEFT JOIN category ON products.category_ID = category.category_ID";
                         $result = mysqli_query($conn, $sql);
                         while($show = mysqli_fetch_array($result)) { ?>
                         <tr>
@@ -131,6 +137,7 @@ include(__DIR__ . '/../config/db.php');
                     </tbody>
                 </table>
             </div>
+
         </section>
 
         <!-- ===== ORDENES ===== -->
