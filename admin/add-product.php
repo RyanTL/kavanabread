@@ -15,11 +15,12 @@ if (isset($_POST['Añadir'])) {
     $nombre = $_POST['nombre'];
     $precio = floatval($_POST['precio']);
     $cantidad = intval($_POST['cantidad']);
+    $categoria= intval($_POST['categoria']);
 
- $stmt = $conn->prepare("INSERT INTO products(Product_Name, Price, Quantity)
-            VAlUES (?, ?, ?)");
+ $stmt = $conn->prepare("INSERT INTO products(Product_Name, Price, Quantity, category_ID)
+            VAlUES (?, ?, ?, ?)");
 
-    $stmt->bind_param("sdi", $nombre, $precio, $cantidad);
+    $stmt->bind_param("sdii", $nombre, $precio, $cantidad, $categoria);
     $stmt->execute();
             header("Location: panel.php");
             exit();
@@ -33,7 +34,7 @@ if (isset($_POST['Añadir'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Añadir Producto – Kavana Bread</title>
-    <link rel="stylesheet" href="/kavanabread/assets/styles.css">
+    <link rel="stylesheet" href="../assets/styles.css">
 </head>
 <body class="admin-layout">
 
@@ -60,7 +61,7 @@ if (isset($_POST['Añadir'])) {
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
                 Ordenes
             </a>
-             <a href="panel.php" class="nav-item">
+             <a href="panel.php" class="nav-item active">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                 Admins
             </a>
@@ -99,6 +100,19 @@ if (isset($_POST['Añadir'])) {
                     <label for="nombre">Nombre del Producto</label>
                     <input type="text" id="nombre" name="nombre" placeholder="Ej. Pan Sobao" required>
                 </div>
+                <div class="admin-form-field">
+                    <label for="categoria">Categoria</label>
+                    <select id="categoria" name="categoria" required>
+                        <?php
+                        $currentCat = $product ? (int)$product['category_ID'] : 0;
+                        $catResult = mysqli_query($conn, "SELECT category_ID, name FROM category");
+                        while ($cat = mysqli_fetch_array($catResult)) {
+                            $selected = ($cat['category_ID'] == $currentCat) ? 'selected' : '';
+                            echo '<option value="' . (int)$cat['category_ID'] . '" ' . $selected . '>' . htmlspecialchars($cat['name']) . '</option>';
+                        }
+                        ?>
+                    </select>
+                </div>
                 <div class="admin-form-row">
                     <div class="admin-form-field">
                         <label for="precio">Precio ($)</label>
@@ -130,7 +144,7 @@ if (isset($_POST['Añadir'])) {
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
             <span>Ordenes</span>
         </a>
-        <a href="panel.php" class="mobile-nav-item">
+        <a href="panel.php" class="mobile-nav-item active">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
             <span>Admins</span>
         </a>
