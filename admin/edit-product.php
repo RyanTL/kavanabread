@@ -21,14 +21,16 @@ if (isset($_POST['Editar'])) {
     $nombre = $_POST['nombre'];
     $precio = floatval($_POST['precio']);
     $cantidad = intval($_POST['cantidad']);
+    $categoria= intval($_POST['categoria']);
 
  $stmt = $conn->prepare("UPDATE products
- SET Product_Name= ?, Price= ?, Quantity= ?
+ SET Product_Name= ?, Price= ?, Quantity= ?, category_ID= ?
             WHERE Product_ID= ?");
-    $stmt->bind_param("sdii", $nombre, $precio, $cantidad, $id);
+    $stmt->bind_param("sdiii", $nombre, $precio, $cantidad, $categoria, $id);
     $stmt->execute();
            header("Location: panel.php");
             exit();
+
 
 }
 ?>
@@ -189,4 +191,3 @@ $stmt = $conn->prepare("DELETE FROM products
 
 </body>
 </html>
-
