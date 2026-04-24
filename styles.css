@@ -196,3 +196,18 @@ body {
 .login-link a:hover {
     text-decoration: underline;
 }
+
+/* Mensajes de error */
+.error-message {
+    background-color: #fdecea;
+    color: #b71c1c;
+    border: 1px solid #f5c2c7;
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
