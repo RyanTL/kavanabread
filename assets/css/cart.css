@@ -1,0 +1,262 @@
+/* Reinicio Global */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Variables css - colores, radios y tipografía reutilizables en todo el archivo */
+:root {
+    --gold-light:  #FDD97A;   
+    --green:       #3B6B4A;   
+    --green-dark:  #1E3D32;   
+    --cream:       #fff;      
+    --card-bg:     #FDD179;   
+    --text:        #1C1C1C;   
+    --muted:       #6B6B5A;   
+    --radius:      18px;      
+}
+
+/* Body - tipografía base, fondo y altura mínima de pantalla completa */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh; /* Ocupa al menos toda la altura de la ventana */
+}
+
+/* Encabezado - barra de navegación fija en la parte superior con sombra */
+header {
+    background: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    height: 72px;
+    position: sticky;   
+    top: 0;
+    z-index: 100;       
+    box-shadow: 0 2px 12px rgba(0,0,0,.10);
+}
+
+/* Sección izquierda del header: logo + nombre de la tienda */
+.header-left { display: flex; align-items: center; gap: 14px; }
+
+/* Sección derecha del header: íconos de navegación */
+.header-icons { display: flex; align-items: center; gap: 20px; }
+.header-icons a {
+    color: var(--green-dark);
+    text-decoration: none;
+    font-size: 1.22rem;
+    transition: color .2s;
+}
+/* Estado hover: cambia a verde principal */
+.header-icons a:hover { color: var(--green); }
+
+/* Contenido principal */
+main {
+    max-width: 980px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Título de la pagina */
+.page-title {
+    font-family: 'Segoe UI', serif;
+    font-size: 2rem;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.page-title svg { width: 28px; height: 28px; color: var(--gold); }
+
+/* Contenedor del carrito - tarjeta blanca con borde, sombra y bordes redondeados */
+.cart-wrapper {
+    background: #fff;
+    border: 1.5px solid #000000;
+    border-radius: 24px;
+    padding: 36px 32px 28px;
+    box-shadow: 0 4px 32px rgba(45,90,74,.07);
+}
+
+/* Estado del carrito cuando está vacío */
+.empty-cart {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+}
+.empty-cart svg { width: 64px; height: 64px; margin-bottom: 16px; opacity: .45; }
+.empty-cart p { font-size: 1.1rem; }
+
+/* Cuadrícula de los productos */
+.items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 22px;
+    margin-bottom: 32px;
+}
+
+/* Tarjeta de los productos */
+.product-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1.5px solid #FDD179;
+    box-shadow: 0 2px 12px rgba(245,184,50,.18);
+    transition: transform .22s, box-shadow .22s;
+    animation: fadeUp .4s ease both;
+}
+
+/* Estado hover - sube levemente con sombra más intensa */
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 28px rgba(245,184,50,.25);
+}
+
+/* Animación de entrada */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Parte superior de la tarjeta */
+.card-top { display: flex; gap: 0; }
+
+/* Imagen cuadrada del producto con recorte centrado */
+.card-img {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;  
+    flex-shrink: 0;     
+    border-radius: 10px;
+}
+
+/* Columna de información */
+.card-info {
+    padding: 16px 14px 12px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* Fila de dato individual */
+.card-info .info-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: .88rem;
+}
+.info-label { font-weight: 500; color: var(--green-dark); } 
+.info-val   { color: var(--text); font-weight: 400; }       
+
+/* Fila del total */
+.total-row {
+    margin-top: 4px;
+    padding-top: 8px;
+    border-top: 1.5px dashed #D4A820;
+}
+.total-row .info-label { font-size: .95rem; }
+.total-row .info-val   { font-weight: 700; color: var(--green-dark); font-size: .95rem; }
+
+/* Footer de la tarjeta */
+.card-footer {
+    padding: 10px 14px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Botón de eliminar artículo */
+.btn-remover {
+    background: none; border: none; cursor: pointer;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: .82rem; color: #c0392b;
+    padding: 4px 0;
+    display: flex; align-items: center; gap: 4px;
+    transition: color .18s; text-decoration: none;
+}
+/* Estado hover */
+.btn-remover:hover { color: #7A2A1E; }
+.btn-remover svg { width: 14px; height: 14px; }
+
+/* Insignia verde con la cantidad del artículo */
+.qty-badge {
+    background: var(--green); color: #fff;
+    font-size: .7rem; font-weight: 700;
+    padding: 3px 9px; border-radius: 20px;
+    letter-spacing: .04em;
+}
+
+/* Barra de resumen */
+.summary-bar {
+    display: flex; align-items: center;
+    justify-content: flex-end; gap: 16px;
+    padding-top: 20px;
+    border-top: 1.5px solid #EEE5CF; 
+    flex-wrap: wrap;                  
+}
+
+/* Total de la cantidad */
+.grand-total {
+    margin-right: auto;
+    font-family: 'Segoe UI', serif;
+    font-size: 1.1rem; color: var(--green-dark);
+}
+.grand-total strong { font-size: 1.4rem; } 
+
+/* Botones generales */
+.btn {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 13px 28px; border-radius: 10px;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: .95rem; font-weight: 500;
+    border: none; cursor: pointer; text-decoration: none;
+    transition: background .2s, transform .15s, box-shadow .2s;
+}
+
+/* Hover de los botones */
+.btn:hover { transform: translateY(-2px); }
+
+
+/* Variante principal */
+.btn-primary {
+    background: var(--green); color: #fff;
+    box-shadow: 0 3px 12px rgba(45,90,74,.25);
+}
+.btn-primary:hover { background: var(--green-dark); box-shadow: 0 6px 20px rgba(45,90,74,.30); }
+
+/* Overlay del menú móvil */
+.menu-overlay {
+    display: none;          
+    position: fixed;
+    inset: 0;               
+    background: rgba(0,0,0,.45);
+    z-index: 200;          
+}
+
+/* Logo del header */
+.header-logo {
+    height: 95px;
+    width: 95px;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+/* Nombre del producto en la tarjeta */
+.info-val--name {
+    max-width: 120px;
+    text-align: right;
+    font-size: .78rem;
+}
+
+/* Diseño responsivo */
+@media (max-width: 540px) {
+    .cart-wrapper  { padding: 22px 14px 18px; }           
+    .items-grid    { grid-template-columns: 1fr; }         
+    .card-img      { width: 110px; }                       
+    .summary-bar   { flex-direction: column; align-items: stretch; text-align: center; } 
+    .grand-total   { margin-right: 0; }                    
+    .btn           { justify-content: center; }            
+}
+
+/* Ícono del carrito en el header  */
+.cart-icon {
+    color: #3B6B4A;
+}

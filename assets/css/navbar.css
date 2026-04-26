@@ -1,0 +1,112 @@
+/* Reinicio Global */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body - tipografía base, fondo y altura mínima de pantalla completa */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f7f7f7;
+}
+
+/* Barra de navegación */
+.navbar {
+  background-color: #FDD179;        
+  height: 75px;
+  display: flex;
+  justify-content: space-between;   
+  align-items: center;
+  padding: 0 40px 0 20px;
+  position: relative;               
+  box-shadow: 0 2px 5px rgba(0,0,0,0.10);
+}
+
+/* Sección izquierda del navbar */
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Logo Principal */
+.main-logo {
+  height: 95px;         
+  width: 95px;
+  object-fit: contain; 
+}
+
+/* Pestaña de inicio */
+.inicio-tab {
+  color: #3B6B4A;
+  text-decoration: none;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 8px 20px;
+  border-bottom: 3px solid transparent; 
+  transition: border-color 0.2s, color 0.2s;
+  white-space: nowrap;                
+  background: none;
+}
+
+/* Estado hover de la pestaña de inicio */
+.inicio-tab:hover {
+  border-bottom: 3px solid #3B6B4A;
+  color: #2d5238;
+}
+
+/* Sección de íconos */
+.nav-icons {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+  position: relative;
+}
+
+/* Estilo base de cada ícono */
+.nav-icons a {
+  text-decoration: none;
+  color: #3B6B4A;
+  font-size: 1.1rem;
+  transition: transform 0.2s;
+  position: relative; 
+}
+
+/* Estado hover del ícono */
+.nav-icons a:hover { transform: scale(1.2); }
+
+/* Tooltip del ícono */
+.icon-tooltip {
+  display: none;                   
+  position: absolute;
+  top: 38px;                       
+  left: 50%;
+  transform: translateX(-50%);     
+  background: #3B6B4A;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 500;                    
+  text-align: center;
+  min-width: 160px;
+}
+
+/* Flecha triangular apuntando hacia arriba */
+.icon-tooltip::before {
+  content: '';
+  position: absolute;
+  top: -6px;                       
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 0 6px 6px;          
+  border-style: solid;
+  border-color: transparent transparent #3B6B4A; 
+}
+
+/* Muestra el tooltip cuando el enlace padre recibe el hover */
+.nav-icons a:hover .icon-tooltip { display: block; }
