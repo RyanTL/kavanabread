@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2026 at 05:23 PM
+-- Generation Time: Apr 27, 2026 at 04:13 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -38,12 +38,7 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `user_id`, `status`) VALUES
-(12, 41, 'active'),
-(13, 42, 'active'),
-(14, 43, 'active'),
-(15, 44, 'active'),
-(16, 45, 'active'),
-(17, 46, 'active');
+(15, 44, 'active');
 
 -- --------------------------------------------------------
 
@@ -55,7 +50,8 @@ CREATE TABLE `cart_products` (
   `cart_id` int(11) NOT NULL,
   `id` int(11) NOT NULL,
   `Product_ID` int(11) NOT NULL,
-  `Quantity` int(11) NOT NULL
+  `Quantity` int(11) NOT NULL,
+  `Total` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -97,12 +93,7 @@ CREATE TABLE `login` (
 --
 
 INSERT INTO `login` (`user_id`, `username`, `lastname`, `email`, `password`) VALUES
-(41, 'kkrkrkrkrknek', 'krkrkrk', 'rrrr@gmail.com', '$2y$10$XM5B.9Z3/lf7b38NEypuTOkiZHzs2eNC4gPrmONuti3.WwMXFJ6.S'),
-(42, 'michi', 'uhiuiug', 'deeses@gmail.com', '$2y$10$ZOdb4vC0.R1xJVg/nCysDezdtTeHV9IabH3qI02Kiu/5AasD00Loq'),
-(43, 'wdwdkwdkwdk', 'msmfdkmkdcmd', 'mmm@gmail.com', '$2y$10$IOqGuDwpbE64deAaqH9tSOK2PrqRtM18qwzwLFe7OaSXQMWVL1SpS'),
 (44, 'admin', 'admin', 'admin@admin.com', '$2y$10$hgEhI3MP3fUsI6qaGxHUQeK6GgkZVSywGUFsOZ/1lM7pqrqHkkvNC'),
-(45, 'ekekeke', 'kekeke', 'mm2@gmail.com', '$2y$10$w4gUsK0CgGXB8C/YmwssreriyH/X9hJE.T9TbDXxjJCsTMibM5APa'),
-(46, 'nininin ', 'jdjdjj', 'ggg@gmail.com', '$2y$10$0PBzlDDlMulw8biUue0uVOn7pBq2t3X10IHHPWsf1DwXouc.kQ5si'),
 (49, 'michiru', 'mi', 'michi@gmail.com', '$2y$10$DjVjkWEH803B4o3bQ88waOOivpTT/6EbqT04pqD6T0ttLNlAMRo2u'),
 (50, 'Krystal', 'Bracero', 'Kavanabread@gmail.com', '$2y$10$fsokEvtwIwVGkdlzbrBpr.0/5SU8pBNtxHzq0exabb32Ts.nhLIKS');
 
@@ -228,7 +219,7 @@ ALTER TABLE `cart_products`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `category_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `category_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `login`
@@ -246,7 +237,7 @@ ALTER TABLE `loginadmins`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `Product_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `Product_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables
