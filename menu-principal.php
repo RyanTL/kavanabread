@@ -14,7 +14,7 @@
         <div class="topBarInner">
             <div class="topBarContent-right">
                 <a href="menu-principal.php">
-                    <img src="imagenes/Kavana_logo.png" alt="Kavana Bread" class="mainLogo">
+                    <img src="images/Kavana_logo.png" alt="Kavana Bread" class="mainLogo">
                 </a>
 
                 <nav class="navLinks">
@@ -97,7 +97,7 @@
         <div class="products-grid">
 
             <div class="product-card">
-                <img src="imagenes/pan_blanco.jpeg" alt="Pan Campesino">
+                <img src="images/pan_blanco.jpeg" alt="Pan Campesino">
 
                 <div class="product-info">
                     <h3>Pan Blanco</h3>
@@ -119,7 +119,7 @@
             </div>
 
             <div class="product-card">
-                <img src="imagenes/pan_de_canela.jpeg" alt="Pan Campesino">
+                <img src="images/pan_de_canela.jpeg" alt="Pan Campesino">
 
                 <div class="product-info">
                     <h3>Pan de Canela</h3>
@@ -141,7 +141,7 @@
             </div>
 
             <div class="product-card">
-                <img src="imagenes/cucumba.jpeg" alt="Pan Campesino">
+                <img src="images/cucumba.jpeg" alt="Pan Campesino">
 
                 <div class="product-info">
                     <h3>Cucumba Chiquito</h3>
@@ -168,7 +168,7 @@
         <div class="products-grid">
 
             <div class="product-card">
-                <img src="imagenes/mantequilla_de_cilantro.jpeg" alt="Pan Campesino">
+                <img src="images/mantequilla_de_cilantro.jpeg" alt="Pan Campesino">
 
                 <div class="product-info">
                     <h3>Mantequilla de Cilantro</h3>
@@ -190,7 +190,7 @@
             </div>
 
             <div class="product-card">
-                <img src="imagenes/mermelada_de_fresa.jpeg" alt="Pan Campesino">
+                <img src="images/mermelada_de_fresa.jpeg" alt="Pan Campesino">
 
                 <div class="product-info">
                     <h3>Mermelada de Fresa</h3>
@@ -212,7 +212,7 @@
             </div>
 
             <div class="product-card">
-                <img src="imagenes/mermelada_de_blueberry.jpeg" alt="Pan Campesino">
+                <img src="images/mermelada_de_blueberry.jpeg" alt="Pan Campesino">
 
                 <div class="product-info">
                     <h3>Mermelada de Blueberry</h3>
@@ -239,7 +239,7 @@
         <div class="products-grid">
 
             <div class="product-card">
-                <img src="imagenes/nueces_y_almendras.jpeg" alt="Pan Campesino">
+                <img src="images/nueces_y_almendras.jpeg" alt="Pan Campesino">
 
                 <div class="product-info">
                     <h3>Nueces y Almendras con Caramelo</h3>
@@ -261,7 +261,7 @@
             </div>
 
             <div class="product-card">
-                <img src="imagenes/tiavaca.jpeg" alt="Pan Campesino">
+                <img src="images/tiavaca.jpeg" alt="Pan Campesino">
 
                 <div class="product-info">
                     <h3>Tiavaca</h3>
@@ -283,7 +283,7 @@
             </div>
 
             <div class="product-card">
-                <img src="imagenes/granola_mix_masa_madre.jpeg" alt="Pan Campesino">
+                <img src="images/granola_mix_masa_madre.jpeg" alt="Pan Campesino">
 
                 <div class="product-info">
                     <h3>Granola Mix Masa Madre</h3>
