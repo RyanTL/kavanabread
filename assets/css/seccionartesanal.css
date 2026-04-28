@@ -1,0 +1,237 @@
+/* Botón de reinicio - botón rojo usado para reiniciar los filtros */
+.reset-btn {
+  background: #c0392b;
+  color: #fff;
+  border: none;
+  padding: 7px 16px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-family: 'Segoe UI', sans-serif;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+/* Estado hover */
+.reset-btn:hover { background: #a93226; }
+
+/* Espacio inferior para evitar que el contenido quede pegado al fondo */
+main { padding-bottom: 60px; }
+
+/* Título principal de la página */
+.main-title {
+  text-align: center;
+  margin: 50px 0 40px;
+  font-size: 2.2rem;
+  color: #2d2d2d;
+  font-weight: 700;
+}
+
+/* Contenedor central de la página */
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 30px;
+}
+
+/* Alinea el botón de reinicio a la derecha con separación inferior */
+.reset-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+/* cuadrícula de productos - 3 columnas de igual ancho con separación entre tarjetas */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+/* Tarjeta de producto */
+.product-card {
+  background-color: #FDD179;
+  border-radius: 18px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+  border: 1px solid #070707;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Efecto de elevación al pasar el cursor */
+.product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+/* Parte superior de la tarjeta */
+.card-top {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+/* Imagen del producto con tamaño fijo y recorte centrado */
+.card-top img {
+  width: 110px;
+  height: 100px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+/* Columna de información que ocupa el espacio restante */
+.card-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+  align-items: flex-start;
+  padding-top: 0;
+}
+
+/* Nombre del producto */
+.card-info h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* Precio del producto */
+.card-info .price {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+/* Acciones de la tarjeta */
+.card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+/* Fila de selectores */
+.selectors-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  width: 100%;
+}
+
+/* Estilo para selector de cantidad */
+.qty-select {
+  background-color: white;
+  color: #333;
+  border: 1.5px solid #ccc;
+  padding: 4px 6px;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-family: 'Segoe UI', sans-serif;
+  cursor: pointer;
+}
+
+/* Estilo para selector de cantidad */
+.qty-select {
+  width: 50px;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+/* Elimina el borde de enfoque por defecto y aplica uno más suave */
+.qty-select:focus { outline: none; border-color: #aaa; }
+
+/* Botón para agregar productos productos en el carrito  */
+.add-button {
+  background-color: #3B6B4A;
+  color: white;
+  border: none;
+  padding: 7px 8px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  font-family: 'Segoe UI', sans-serif;
+  cursor: pointer;
+  width: 100%;
+  white-space: nowrap;
+  transition: background 0.2s, transform 0.15s;
+}
+
+/* Estado hover: verde más oscuro */
+.add-button:hover {
+  background-color: #2d5238;
+  transform: scale(1.01);
+}
+
+/* Fila de onzas*/
+.oz-row {
+  margin-top: 4px;
+  display: flex;
+  width: 100%;
+}
+
+/* Estilo para selector de onzas*/
+.oz-select {
+  background-color: white;
+  color: #333;
+  border: 1.5px solid #ccc;
+  padding: 4px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-family: 'Segoe UI', sans-serif;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+}
+
+/* Elimina el borde de enfoque por defecto y aplica uno más suave */
+.oz-select:focus { outline: none; border-color: #aaa; }
+
+/* Contenedor relativo para posicionar el dropdown internamente */
+.dropdown-wrapper {
+  position: relative;
+}
+
+/* Notificación temporal (toast) */
+#toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: #3B6B4A;
+  color: #fff;
+  padding: .7rem 1.5rem;
+  border-radius: 30px;
+  font-size: .92rem;
+  font-weight: 600;
+  opacity: 0;
+  transition: all .35s ease;
+  z-index: 9999;
+  white-space: nowrap;
+}
+
+/* Clase activa: sube y se hace visible */
+#toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Diseños responsivos */
+@media (max-width: 900px) {
+  .product-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .product-grid { grid-template-columns: 1fr; }
+  .content { padding: 0 12px; }
+}

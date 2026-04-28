@@ -1,4 +1,5 @@
 <?php
+    include __DIR__ . '/navbar.php';
     //Variables para conectarse a la base de datosy la conexion
     $servername = "localhost";
     $username = "root";
@@ -101,4 +102,5 @@
         </div>
     </div>
 </body>
+
 </html>

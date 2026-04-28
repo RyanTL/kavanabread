@@ -1,0 +1,936 @@
+/* ==========================================================================
+   GLOBAL — Estilos globales de Kavana Bread
+   ========================================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+}
+
+
+/* ==========================================================================
+   INDEX — Página de inicio
+   ========================================================================== */
+
+/* Barra de navegación superior con enlace a crear cuenta */
+.nav-index {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 32px;
+}
+
+/* Estilo del enlace de navegación */
+.nav-index a {
+    text-decoration: none;
+    color: #496B5B;
+    font-size: 14px;
+    font-weight: 600;
+    transition: opacity 0.2s;
+}
+
+.nav-index a:hover {
+    opacity: 0.7;
+}
+
+
+/* ==========================================================================
+   CREAR CUENTA — Página de registro
+   ========================================================================== */
+
+/* Fondo verde centrado que envuelve la card */
+.body-crear-cuenta {
+    background-color: #496B5B;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Contenedor principal dividido en dos paneles: logo a la izquierda y formulario a la derecha */
+.card {
+    display: flex;
+    width: 780px;
+    min-height: 480px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+/* Panel izquierdo con fondo dorado que muestra el logo */
+.card-left {
+    background-color: #FDD179;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+.card-left img {
+    width: 220px;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Panel derecho blanco que contiene el formulario */
+.card-right {
+    background-color: #ffffff;
+    flex: 1.1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 48px 44px;
+}
+
+.card-right h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 28px;
+}
+
+/* Fila que coloca Nombre y Apellido en la misma línea */
+.form-row {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+}
+
+/* Campo de ancho completo usado para correo y contraseña */
+.form-group-full {
+    margin-bottom: 16px;
+}
+
+.form-group-full label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+}
+
+/* Wrapper que combina el ícono SVG y el input en una sola fila */
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    border: 1.5px solid #d4d4d4;
+    border-radius: 8px;
+    padding: 10px 12px;
+    gap: 8px;
+    transition: border-color 0.2s;
+}
+
+.input-wrapper:focus-within {
+    border-color: #3a5a40;
+}
+
+.input-wrapper svg {
+    flex-shrink: 0;
+    color: #9ca3af;
+}
+
+.input-wrapper input {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 14px;
+    color: #1a1a1a;
+    background: transparent;
+}
+
+.input-wrapper input::placeholder {
+    color: #b0b0b0;
+}
+
+/* Botón de envío del formulario */
+.btn-crear {
+    width: 100%;
+    padding: 14px;
+    background-color: #496B5B;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.2s;
+}
+
+.btn-crear:hover {
+    background-color: #2e4832;
+}
+
+/* ==========================================================================
+   ADMIN DASHBOARD — Single-page layout with sidebar
+   ========================================================================== */
+
+.admin-layout {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f4f4f0;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* --- Sidebar --- */
+
+.admin-sidebar {
+    width: 230px;
+    background-color: #496B5B;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 100;
+}
+
+.sidebar-logo {
+    background-color: #FDD179;
+    padding: 28px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar-logo img {
+    width: 96px;
+    height: auto;
+    object-fit: contain;
+}
+
+.sidebar-nav {
+    flex: 1;
+    padding: 20px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 11px 14px;
+    border-radius: 8px;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Segoe UI', sans-serif;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.15s, color 0.15s;
+}
+
+.nav-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.nav-item.active {
+    background-color: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* --- Sidebar footer: user info + logout --- */
+
+.sidebar-footer {
+    padding: 16px 12px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.user-chip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 2px;
+}
+
+.user-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background-color: #FDD179;
+    color: #496B5B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.user-details span {
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.user-details small {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 11px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.btn-logout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 10px 14px;
+    background-color: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    transition: background-color 0.15s, color 0.15s;
+}
+
+.btn-logout:hover {
+    background-color: rgba(255, 255, 255, 0.16);
+    color: #ffffff;
+}
+
+/* --- Main content area --- */
+
+.admin-main {
+    margin-left: 230px;
+    flex: 1;
+    padding: 36px 40px;
+    min-height: 100vh;
+}
+
+/* --- Tab sections --- */
+
+.admin-tab {
+    display: none;
+}
+
+.admin-tab.active {
+    display: block;
+}
+
+.tab-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.tab-header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 2px;
+}
+
+.tab-subtitle {
+    font-size: 13px;
+    color: #9ca3af;
+    margin: 0;
+}
+
+/* --- Primary action button --- */
+
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    background-color: #496B5B;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'Segoe UI', sans-serif;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.15s;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.btn-primary:hover {
+    background-color: #2e4832;
+}
+
+/* --- Content card --- */
+
+.content-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+/* --- Product table --- */
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-table thead tr {
+    background-color: #f9f9f7;
+    border-bottom: 1px solid #ebebe6;
+}
+
+.admin-table th {
+    padding: 11px 16px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
+.admin-table td {
+    padding: 14px 16px;
+    font-size: 14px;
+    color: #1a1a1a;
+    border-bottom: 1px solid #f2f2ee;
+    vertical-align: middle;
+}
+
+.admin-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.admin-table tbody tr:hover {
+    background-color: #fafaf8;
+}
+
+.td-id {
+    color: #9ca3af;
+    font-size: 13px;
+    font-weight: 500;
+    width: 60px;
+}
+
+.td-name {
+    font-weight: 500;
+}
+
+.td-price {
+    font-weight: 600;
+    color: #496B5B;
+}
+
+/* --- Quantity badge --- */
+
+.qty-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background-color: #f0f0ec;
+    color: #4b5563;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* --- Edit button --- */
+
+.btn-edit {
+    display: inline-block;
+    padding: 6px 14px;
+    background-color: transparent;
+    border: 1.5px solid #d1d5db;
+    color: #374151;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: border-color 0.15s, background-color 0.15s, color 0.15s;
+}
+
+.btn-edit:hover {
+    border-color: #496B5B;
+    background-color: #496B5B;
+    color: #ffffff;
+}
+
+/* --- Email column --- */
+
+.td-email {
+    font-size: 13px;
+    color: #6b7280;
+}
+
+/* --- Small danger button for table rows --- */
+
+.btn-danger-sm {
+    padding: 6px 12px;
+    font-size: 12px;
+}
+
+/* --- Empty state --- */
+
+.empty-state {
+    padding: 64px 40px;
+    text-align: center;
+    color: #c0c0b8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+.empty-state p {
+    font-size: 14px;
+    color: #b0b0a8;
+    margin: 0;
+}
+
+/* ==========================================================================
+   ADMIN FORMS — Añadir / Editar Producto
+   ========================================================================== */
+
+.admin-form-card {
+    padding: 32px;
+}
+
+.admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.admin-form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.admin-form-field label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.admin-form-field input {
+    padding: 11px 14px;
+    border: 1.5px solid #e0e0da;
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: 'Segoe UI', sans-serif;
+    color: #1a1a1a;
+    background-color: #fafaf8;
+    outline: none;
+    transition: border-color 0.15s, background-color 0.15s;
+    width: 100%;
+}
+
+.admin-form-field input:focus {
+    border-color: #496B5B;
+    background-color: #ffffff;
+}
+
+.admin-form-field input::placeholder {
+    color: #b8b8b0;
+}
+
+.admin-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.admin-form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 8px;
+    border-top: 1px solid #f0f0ec;
+    margin-top: 4px;
+}
+
+.form-actions-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Back button (header) */
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 16px;
+    background-color: transparent;
+    border: 1.5px solid #e0e0da;
+    color: #6b7280;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: 'Segoe UI', sans-serif;
+    text-decoration: none;
+    transition: border-color 0.15s, color 0.15s;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.btn-back:hover {
+    border-color: #496B5B;
+    color: #496B5B;
+}
+
+/* Cancel button */
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    background-color: transparent;
+    border: 1.5px solid #e0e0da;
+    color: #6b7280;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'Segoe UI', sans-serif;
+    text-decoration: none;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+}
+
+.btn-secondary:hover {
+    border-color: #9ca3af;
+    color: #374151;
+}
+
+/* Delete button */
+.btn-danger {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    background-color: transparent;
+    border: 1.5px solid #fca5a5;
+    color: #dc2626;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'Segoe UI', sans-serif;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.15s, border-color 0.15s;
+}
+
+.btn-danger:hover {
+    background-color: #fef2f2;
+    border-color: #f87171;
+}
+
+/* Mobile back icon in header */
+.mobile-back-icon {
+    color: rgba(255,255,255,0.9);
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background-color 0.15s;
+}
+
+.mobile-back-icon:hover {
+    background-color: rgba(255,255,255,0.15);
+}
+
+@media (max-width: 768px) {
+    .admin-form-card {
+        padding: 20px 16px;
+    }
+
+    .admin-form-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .admin-form-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .form-actions-right {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .btn-secondary,
+    .btn-primary,
+    .btn-danger {
+        width: 100%;
+        justify-content: center;
+        padding: 13px 18px;
+        font-size: 14px;
+    }
+
+    .btn-danger {
+        order: 3;
+        border-color: #fca5a5;
+    }
+}
+
+/* ==========================================================================
+   RESPONSIVE — Mobile-first adaptations (< 768px)
+   ========================================================================== */
+
+/* Hide desktop-only elements on mobile */
+.mobile-header,
+.mobile-nav {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .admin-sidebar { display: none; }
+    .admin-main {
+        margin-left: 0;
+        padding: 16px 16px 90px;
+        padding-top: calc(64px + 16px);
+    }
+
+    .mobile-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 64px;
+        background-color: #496B5B;
+        padding: 0 20px;
+        z-index: 200;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    .mobile-logo {
+        height: 40px;
+        width: auto;
+    }
+
+    .mobile-page-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #ffffff;
+        letter-spacing: 0.2px;
+    }
+
+    .mobile-logout-icon {
+        color: rgba(255,255,255,0.8);
+        display: flex;
+        align-items: center;
+        padding: 8px;
+        border-radius: 8px;
+        transition: background-color 0.15s;
+    }
+
+    .mobile-logout-icon:hover {
+        background-color: rgba(255,255,255,0.15);
+        color: #ffffff;
+    }
+
+    .mobile-nav {
+        display: flex;
+        align-items: stretch;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 70px;
+        background-color: #ffffff;
+        border-top: 1px solid #e8e8e4;
+        box-shadow: 0 -4px 16px rgba(0,0,0,0.08);
+        z-index: 200;
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .mobile-nav-item {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        background: none;
+        border: none;
+        font-family: 'Segoe UI', sans-serif;
+        font-size: 10px;
+        font-weight: 500;
+        color: #9ca3af;
+        text-decoration: none;
+        cursor: pointer;
+        padding: 8px 4px;
+        transition: color 0.15s;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .mobile-nav-item span {
+        font-size: 10px;
+        font-weight: 500;
+    }
+
+    .mobile-nav-item.active {
+        color: #496B5B;
+    }
+
+    .mobile-nav-item.active svg {
+        stroke: #496B5B;
+    }
+
+    .tab-header {
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 16px;
+    }
+
+    .tab-header h1 { font-size: 20px; }
+
+    .btn-primary {
+        width: 100%;
+        justify-content: center;
+        padding: 13px 18px;
+        font-size: 14px;
+    }
+
+    .content-card {
+        background: transparent;
+        box-shadow: none;
+        overflow: visible;
+    }
+
+    .admin-table {
+        display: block;
+    }
+
+    .admin-table thead {
+        display: none;
+    }
+
+    .admin-table tbody {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .admin-table tbody tr {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-rows: auto auto;
+        gap: 6px 12px;
+        background: #ffffff;
+        border: 1px solid #ebebe9;
+        border-radius: 12px;
+        padding: 16px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .admin-table tbody tr:hover { background: #ffffff; }
+
+    .admin-table td {
+        border: none;
+        padding: 0;
+        vertical-align: middle;
+    }
+
+    .td-id { display: none; }
+
+    .td-name {
+        grid-column: 1;
+        grid-row: 1;
+        font-size: 15px;
+        font-weight: 600;
+        color: #1a1a1a;
+        align-self: center;
+    }
+
+    .td-price {
+        grid-column: 2;
+        grid-row: 1;
+        font-size: 15px;
+        font-weight: 700;
+        text-align: right;
+        align-self: center;
+    }
+
+    .td-qty {
+        grid-column: 1;
+        grid-row: 2;
+        align-self: center;
+    }
+
+    .td-actions {
+        grid-column: 2;
+        grid-row: 2;
+        text-align: right;
+        align-self: center;
+    }
+
+    .btn-edit {
+        padding: 7px 16px;
+        font-size: 13px;
+    }
+
+    .empty-state {
+        padding: 48px 24px;
+    }
+}
+
+/* Enlace al pie del formulario para usuarios que ya tienen cuenta */
+.login-link {
+    text-align: center;
+    margin-top: 14px;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.login-link a {
+    color: #3a5a40;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}

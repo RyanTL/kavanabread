@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 27, 2026 at 04:27 PM
+-- Generation Time: Apr 27, 2026 at 04:13 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -27,7 +27,6 @@ SET time_zone = "+00:00";
 -- Table structure for table `cart`
 --
 
-DROP TABLE IF EXISTS `cart`;
 CREATE TABLE `cart` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -39,9 +38,7 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `user_id`, `status`) VALUES
-(12, 41, 'active'),
-(13, 42, 'active'),
-(14, 43, 'active');
+(15, 44, 'active');
 
 -- --------------------------------------------------------
 
@@ -49,13 +46,33 @@ INSERT INTO `cart` (`id`, `user_id`, `status`) VALUES
 -- Table structure for table `cart_products`
 --
 
-DROP TABLE IF EXISTS `cart_products`;
 CREATE TABLE `cart_products` (
   `cart_id` int(11) NOT NULL,
   `id` int(11) NOT NULL,
   `Product_ID` int(11) NOT NULL,
-  `Quantity` int(11) NOT NULL
+  `Quantity` int(11) NOT NULL,
+  `Total` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `category`
+--
+
+CREATE TABLE `category` (
+  `category_ID` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`category_ID`, `name`) VALUES
+(1, 'Pan'),
+(2, 'Artesanal'),
+(3, 'Snacks');
 
 -- --------------------------------------------------------
 
@@ -63,7 +80,6 @@ CREATE TABLE `cart_products` (
 -- Table structure for table `login`
 --
 
-DROP TABLE IF EXISTS `login`;
 CREATE TABLE `login` (
   `user_id` int(11) NOT NULL,
   `username` varchar(20) NOT NULL,
@@ -77,9 +93,29 @@ CREATE TABLE `login` (
 --
 
 INSERT INTO `login` (`user_id`, `username`, `lastname`, `email`, `password`) VALUES
-(41, 'kkrkrkrkrknek', 'krkrkrk', 'rrrr@gmail.com', '$2y$10$XM5B.9Z3/lf7b38NEypuTOkiZHzs2eNC4gPrmONuti3.WwMXFJ6.S'),
-(42, 'michi', 'uhiuiug', 'deeses@gmail.com', '$2y$10$ZOdb4vC0.R1xJVg/nCysDezdtTeHV9IabH3qI02Kiu/5AasD00Loq'),
-(43, 'wdwdkwdkwdk', 'msmfdkmkdcmd', 'mmm@gmail.com', '$2y$10$IOqGuDwpbE64deAaqH9tSOK2PrqRtM18qwzwLFe7OaSXQMWVL1SpS');
+(44, 'admin', 'admin', 'admin@admin.com', '$2y$10$hgEhI3MP3fUsI6qaGxHUQeK6GgkZVSywGUFsOZ/1lM7pqrqHkkvNC'),
+(49, 'michiru', 'mi', 'michi@gmail.com', '$2y$10$DjVjkWEH803B4o3bQ88waOOivpTT/6EbqT04pqD6T0ttLNlAMRo2u'),
+(50, 'Krystal', 'Bracero', 'Kavanabread@gmail.com', '$2y$10$fsokEvtwIwVGkdlzbrBpr.0/5SU8pBNtxHzq0exabb32Ts.nhLIKS');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `loginadmins`
+--
+
+CREATE TABLE `loginadmins` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `loginadmins`
+--
+
+INSERT INTO `loginadmins` (`id`, `user_id`) VALUES
+(1, 44),
+(4, 49),
+(5, 50);
 
 -- --------------------------------------------------------
 
@@ -87,10 +123,10 @@ INSERT INTO `login` (`user_id`, `username`, `lastname`, `email`, `password`) VAL
 -- Table structure for table `products`
 --
 
-DROP TABLE IF EXISTS `products`;
 CREATE TABLE `products` (
   `Product_ID` int(11) NOT NULL,
   `Product_Name` varchar(50) NOT NULL,
+  `category_ID` int(11) NOT NULL,
   `Price` decimal(6,2) NOT NULL,
   `Quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -99,15 +135,22 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`Product_ID`, `Product_Name`, `Price`, `Quantity`) VALUES
-(1, 'Pan Sobao', 1.00, 1),
-(2, 'Pan Criollo', 2.09, 1),
-(3, 'Baguette', 2.00, 1),
-(4, 'Croissant', 2.00, 1),
-(5, 'Dounut', 2.00, 1),
-(6, 'Muffin', 2.00, 1),
-(7, 'Honeybun', 2.00, 1),
-(8, 'Pan Sobao integral', 2.99, 1);
+INSERT INTO `products` (`Product_ID`, `Product_Name`, `category_ID`, `Price`, `Quantity`) VALUES
+(1, 'Pan Blanco', 1, 1.25, 15),
+(2, 'Pan de Semillas', 1, 2.09, 15),
+(3, 'Pan de Canela y Pasas', 1, 2.00, 1),
+(4, 'Pan de Curcuma', 1, 2.00, 1),
+(5, 'Pan de Avena y Miel', 1, 2.00, 1),
+(6, 'Mantequilla fresca', 2, 6.00, 1),
+(7, 'Jalea de Fresa', 2, 5.00, 1),
+(8, 'Jalea de Blueberry', 2, 5.00, 1),
+(9, 'Mantequilla Cilantro (3oz)', 2, 5.00, 15),
+(12, 'Mantequilla Cilantro (8oz)', 2, 12.00, 10),
+(13, 'Nueces y Almendras con Caramelo', 2, 5.00, 25),
+(16, 'Nueces y Almendras con Caramelo', 3, 5.00, 1),
+(17, 'Cocacha Pan Italiano', 3, 8.00, 1),
+(18, 'Tiavaca(4)', 3, 6.00, 1),
+(19, 'Granola mix masa madre', 3, 5.00, 1);
 
 --
 -- Indexes for dumped tables
@@ -130,6 +173,12 @@ ALTER TABLE `cart_products`
   ADD KEY `Product_ID` (`Product_ID`);
 
 --
+-- Indexes for table `category`
+--
+ALTER TABLE `category`
+  ADD PRIMARY KEY (`category_ID`);
+
+--
 -- Indexes for table `login`
 --
 ALTER TABLE `login`
@@ -137,10 +186,18 @@ ALTER TABLE `login`
   ADD UNIQUE KEY `email` (`email`);
 
 --
+-- Indexes for table `loginadmins`
+--
+ALTER TABLE `loginadmins`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
-  ADD PRIMARY KEY (`Product_ID`);
+  ADD PRIMARY KEY (`Product_ID`),
+  ADD KEY `category_ID` (`category_ID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -150,7 +207,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `cart_products`
@@ -159,16 +216,28 @@ ALTER TABLE `cart_products`
   MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `category`
+--
+ALTER TABLE `category`
+  MODIFY `category_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+
+--
+-- AUTO_INCREMENT for table `loginadmins`
+--
+ALTER TABLE `loginadmins`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `Product_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `Product_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables
@@ -186,6 +255,18 @@ ALTER TABLE `cart`
 ALTER TABLE `cart_products`
   ADD CONSTRAINT `cart_products_ibfk_1` FOREIGN KEY (`id`) REFERENCES `cart` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `cart_products_ibfk_2` FOREIGN KEY (`Product_ID`) REFERENCES `products` (`Product_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `loginadmins`
+--
+ALTER TABLE `loginadmins`
+  ADD CONSTRAINT `loginadmins_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `login` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `products`
+--
+ALTER TABLE `products`
+  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`category_ID`) REFERENCES `category` (`category_ID`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
