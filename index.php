@@ -1,5 +1,4 @@
 <?php
-    include __DIR__ . '/navbar.php';
     //Variables para conectarse a la base de datosy la conexion
     $servername = "localhost";
     $username = "root";
@@ -94,7 +93,7 @@
                         <input type="password" id="password" name="password" placeholder="Mín. 8 caracteres">
                     </div>
                 </div>
-                <input type="submit" class="btn-crear-iniciar" value="Iniciar Sesión">
+                <input type="submit" class="btn-crear" value="Iniciar Sesión">
             </form>
             <p class="login-link">
                 No tienes cuenta? <a href="crear-cuenta.php">Crear Cuenta</a>
