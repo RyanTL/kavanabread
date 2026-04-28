@@ -3,7 +3,7 @@ secciones del sitio (Menú, Panes, Artesanal y Otros) -->
 <header class="navbar">
   <div class="navbar-left">
     <a href="index.php"><img src="assets/logo-cutout.png" alt="Kavaná Bread" class="main-logo"></a>
-    <a href="seccionpanes.php" class="inicio-tab">Menú </a>
+    <a href="menu-principal.php" class="inicio-tab">Menú </a>
     <a href="seccionpanes.php" class="inicio-tab">Panes</a>
     <a href="seccionartesanal.php" class="inicio-tab">Artesanal</a>
     <a href="seccionotros.php" class="inicio-tab">Otros</a>

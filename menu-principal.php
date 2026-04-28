@@ -19,9 +19,9 @@
 
                 <nav class="navLinks">
                     <a href="menu-principal.php" class="nav-link active">Menú</a>
-                    <a href="panes.php" class="nav-link">Panes</a>
-                    <a href="artesanal.php" class="nav-link">Artesanal</a>
-                    <a href="otros.php" class="nav-link">Otros</a>
+                    <a href="seccionpanes.php" class="nav-link">Panes</a>
+                    <a href="seccionartesanal.php" class="nav-link">Artesanal</a>
+                    <a href="seccionotros.php" class="nav-link">Otros</a>
                 </nav>
             </div>
 
