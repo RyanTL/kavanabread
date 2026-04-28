@@ -301,10 +301,11 @@ h2 {
     cursor: pointer;
     margin: auto;
     transition: background 0.3s ease, transform 0.2s ease;
+    text-decoration: none;
 }
 
 .add-cart-btn:hover {
-    background: #509172;
+    background: #2a4739;
     transform: scale(1.05);
 }
 

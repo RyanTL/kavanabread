@@ -6,10 +6,17 @@
     <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
     <script src = "https://kit.fontawesome.com/bde2b79879.js" crossorigin = "anonymous"></script>
     <link rel = "stylesheet" href = "styles/menu-principal.css">
+    <link rel="stylesheet" href="assets/css/navbar.css"/>
     <title>Kavana Bread | Menu Principal</title>
 </head>
 
 <body>
+    <?php
+        include "navbar.php";
+    ?>
+
+    <!-- Top Bar que hice originalmente (Gustavo Bauer)
+
     <div class="topBarContainer">
         <div class="topBarInner">
             <div class="topBarContent-right">
@@ -92,6 +99,8 @@
         </div>
     </div>
 
+    -->
+
     <section class="products-section">
         <h2 class="section-title">Panes más comprados</h2>
         <div class="products-grid">
@@ -102,7 +111,7 @@
                 <div class="product-info">
                     <h3>Pan Blanco</h3>
                     <div class="product-footer">
-                        <button class="add-cart-btn">
+                        <a href="seccionpanes.php" class="add-cart-btn">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round">
@@ -113,7 +122,7 @@
                                         a2 2 0 0 0 2-1.61L23 6H6"/>
                             </svg>
                             Ver más
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -124,7 +133,7 @@
                 <div class="product-info">
                     <h3>Pan de Canela</h3>
                     <div class="product-footer">
-                        <button class="add-cart-btn">
+                        <a href="seccionpanes.php" class="add-cart-btn">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round">
@@ -135,7 +144,7 @@
                                         a2 2 0 0 0 2-1.61L23 6H6"/>
                             </svg>
                             Ver más
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -146,7 +155,7 @@
                 <div class="product-info">
                     <h3>Cucumba Chiquito</h3>
                     <div class="product-footer">
-                        <button class="add-cart-btn">
+                        <a href="seccionpanes.php" class="add-cart-btn">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round">
@@ -157,7 +166,7 @@
                                         a2 2 0 0 0 2-1.61L23 6H6"/>
                             </svg>
                             Ver más
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -173,7 +182,7 @@
                 <div class="product-info">
                     <h3>Mantequilla de Cilantro</h3>
                     <div class="product-footer">
-                        <button class="add-cart-btn">
+                        <a href="seccionartesanal.php" class="add-cart-btn">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round">
@@ -184,7 +193,7 @@
                                         a2 2 0 0 0 2-1.61L23 6H6"/>
                             </svg>
                             Ver más
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -195,7 +204,7 @@
                 <div class="product-info">
                     <h3>Mermelada de Fresa</h3>
                     <div class="product-footer">
-                        <button class="add-cart-btn">
+                        <a href="seccionartesanal.php" class="add-cart-btn">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round">
@@ -206,7 +215,7 @@
                                         a2 2 0 0 0 2-1.61L23 6H6"/>
                             </svg>
                             Ver más
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -217,7 +226,7 @@
                 <div class="product-info">
                     <h3>Mermelada de Blueberry</h3>
                     <div class="product-footer">
-                        <button class="add-cart-btn">
+                        <a href="seccionartesanal.php" class="add-cart-btn">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round">
@@ -228,7 +237,7 @@
                                         a2 2 0 0 0 2-1.61L23 6H6"/>
                             </svg>
                             Ver más
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -244,7 +253,7 @@
                 <div class="product-info">
                     <h3>Nueces y Almendras con Caramelo</h3>
                     <div class="product-footer">
-                        <button class="add-cart-btn">
+                        <a href="seccionotros.php" class="add-cart-btn">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round">
@@ -255,7 +264,7 @@
                                         a2 2 0 0 0 2-1.61L23 6H6"/>
                             </svg>
                             Ver más
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -266,7 +275,7 @@
                 <div class="product-info">
                     <h3>Tiavaca</h3>
                     <div class="product-footer">
-                        <button class="add-cart-btn">
+                        <a href="seccionotros.php" class="add-cart-btn">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round">
@@ -277,7 +286,7 @@
                                         a2 2 0 0 0 2-1.61L23 6H6"/>
                             </svg>
                             Ver más
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -288,7 +297,7 @@
                 <div class="product-info">
                     <h3>Granola Mix Masa Madre</h3>
                     <div class="product-footer">
-                        <button class="add-cart-btn">
+                        <a href="seccionotros.php" class="add-cart-btn">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round">
@@ -299,7 +308,7 @@
                                         a2 2 0 0 0 2-1.61L23 6H6"/>
                             </svg>
                             Ver más
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
