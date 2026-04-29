@@ -82,7 +82,7 @@
                 <button type="submit" name="btn-crear" class="btn-crear">Crear cuenta</button>
 
                 <p class="login-link">
-                    Ya tienes una cuenta? <a href="index.php">Iniciar Sesion</a>
+                    Ya tienes una cuenta? <a href="iniciar-sesion.php">Iniciar Sesion</a>
                 </p>
 
                 <?php include(__DIR__ . '/config/db.php');

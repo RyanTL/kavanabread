@@ -5,9 +5,9 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// Si el usuario no está logueado, lo manda al login (por ahora esta en index)
+// Si el usuario no está logueado, lo manda al login
 if (!isset($_SESSION['id'])) {
-    header("Location: index.php");
+    header("Location: iniciar-sesion.php");
     exit();
 } 
 
@@ -28,11 +28,55 @@ if (empty($cart_items)) {
 
 // Calcular subtotal, tax y total desde los items del carrito
 $subtotal = 0;
+$shipping_total = 0;
 foreach ($cart_items as $item) {
     $subtotal += $item['precio'] * $item['cantidad'];
+    $shipping_total += $item['envio'] ?? 0;
 }
 $tax   = round($subtotal * 0.115, 2); // IVU 11.5% PR
-$total = round($subtotal + $tax, 2);
+$total = round($subtotal + $shipping_total + $tax, 2);
+
+function crearOrdenDemo($conn, $user_id, $metodo, $subtotal, $tax, $total, $cart_items) {
+    $conn->begin_transaction();
+
+    try {
+        $estado = "Completada";
+        $stmt = $conn->prepare("INSERT INTO orders (user_id, payment_method, subtotal, tax, total, status) VALUES (?, ?, ?, ?, ?, ?)");
+        if (!$stmt) {
+            throw new Exception("No se pudo preparar la orden.");
+        }
+        $stmt->bind_param("isddds", $user_id, $metodo, $subtotal, $tax, $total, $estado);
+        if (!$stmt->execute()) {
+            throw new Exception("No se pudo crear la orden.");
+        }
+        $order_id = $conn->insert_id;
+
+        $stmt_item = $conn->prepare("INSERT INTO order_items (order_id, product_name, product_size, quantity, unit_price, shipping, line_total) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        if (!$stmt_item) {
+            throw new Exception("No se pudieron preparar los productos de la orden.");
+        }
+
+        foreach ($cart_items as $item) {
+            $product_name = $item['nombre'];
+            $product_size = $item['tamano'] ?? null;
+            $quantity = (int) $item['cantidad'];
+            $unit_price = (float) $item['precio'];
+            $shipping = (float) ($item['envio'] ?? 0);
+            $line_total = ($unit_price * $quantity) + $shipping;
+
+            $stmt_item->bind_param("issiddd", $order_id, $product_name, $product_size, $quantity, $unit_price, $shipping, $line_total);
+            if (!$stmt_item->execute()) {
+                throw new Exception("No se pudo guardar un producto de la orden.");
+            }
+        }
+
+        $conn->commit();
+        return $order_id;
+    } catch (Exception $e) {
+        $conn->rollback();
+        throw $e;
+    }
+}
 
 // Procesar el formulario cuando el usuario presione Pagar
 if (isset($_POST['btn-comprar'])) {
@@ -55,22 +99,34 @@ if (isset($_POST['btn-comprar'])) {
             $errores[] = "CVV inválido.";
 
         if (empty($errores)) {
-            // Vaciar el carrito después de compra exitosa
-            $_SESSION['cart_items'] = [];
-            $mensaje = "¡Compra realizada con éxito! Gracias por tu pedido.";
-            $tipo_mensaje = "exito";
-            $cart_items = []; // Limpiar para que no muestre productos después
+            try {
+                $order_id = crearOrdenDemo($conn, (int) $_SESSION['id'], $metodo, $subtotal, $tax, $total, $cart_items);
+                // Vaciar el carrito después de compra exitosa
+                $_SESSION['cart_items'] = [];
+                $mensaje = "¡Compra realizada con éxito! Tu número de orden es #" . $order_id . ".";
+                $tipo_mensaje = "exito";
+                $cart_items = []; // Limpiar para que no muestre productos después
+            } catch (Exception $e) {
+                $mensaje = "No se pudo guardar la orden. Inténtalo de nuevo.";
+                $tipo_mensaje = "error";
+            }
         } else {
             $mensaje = implode("<br>", $errores);
             $tipo_mensaje = "error";
         }
 
     } elseif ($metodo === 'paypal' || $metodo === 'googlepay') {
-        // Aquí iría la redirección a PayPal / Google Pay
-        $_SESSION['cart_items'] = [];
-        $mensaje = "Redirigiendo a " . ($metodo === 'paypal' ? 'PayPal' : 'Google Pay') . "...";
-        $tipo_mensaje = "exito";
-        $cart_items = [];
+        try {
+            $order_id = crearOrdenDemo($conn, (int) $_SESSION['id'], $metodo, $subtotal, $tax, $total, $cart_items);
+            // Demo: aquí iría la redirección real a PayPal / Google Pay.
+            $_SESSION['cart_items'] = [];
+            $mensaje = "¡Compra realizada con éxito! Tu número de orden es #" . $order_id . ".";
+            $tipo_mensaje = "exito";
+            $cart_items = [];
+        } catch (Exception $e) {
+            $mensaje = "No se pudo guardar la orden. Inténtalo de nuevo.";
+            $tipo_mensaje = "error";
+        }
     } else {
         $mensaje = "Selecciona un método de pago.";
         $tipo_mensaje = "error";
@@ -199,6 +255,10 @@ $metodo_seleccionado = $_POST['metodo_pago'] ?? '';
                         <div class="resumen-fila">
                             <span>Tax (11.5%):</span>
                             <span>$<?= number_format($tax, 2) ?></span>
+                        </div>
+                        <div class="resumen-fila">
+                            <span>Envío:</span>
+                            <span>$<?= number_format($shipping_total, 2) ?></span>
                         </div>
                         <div class="resumen-fila total">
                             <span>Total:</span>

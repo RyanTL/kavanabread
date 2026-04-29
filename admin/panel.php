@@ -152,10 +152,68 @@ include(__DIR__ . '/../config/db.php');
                     <p class="tab-subtitle">Revisa los pedidos recientes</p>
                 </div>
             </div>
-            <div class="content-card empty-state">
-                <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#c8c8c0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                <p>No hay ordenes disponibles</p>
-            </div>
+            <?php
+            $orders_sql = "SELECT o.order_id, o.payment_method, o.total, o.status, o.created_at,
+                                  l.username, l.email,
+                                  COUNT(oi.order_item_id) AS total_items
+                           FROM orders o
+                           JOIN login l ON o.user_id = l.user_id
+                           LEFT JOIN order_items oi ON o.order_id = oi.order_id
+                           GROUP BY o.order_id
+                           ORDER BY o.created_at DESC";
+            $orders_result = mysqli_query($conn, $orders_sql);
+            ?>
+
+            <?php if ($orders_result && mysqli_num_rows($orders_result) > 0): ?>
+                <div class="content-card">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Orden</th>
+                                <th>Cliente</th>
+                                <th>Items</th>
+                                <th>Método</th>
+                                <th>Total</th>
+                                <th>Estado</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php while($order = mysqli_fetch_array($orders_result)) {
+                                $metodo_pago = [
+                                    'tarjeta' => 'Tarjeta',
+                                    'paypal' => 'PayPal',
+                                    'googlepay' => 'Google Pay'
+                                ][$order['payment_method']] ?? $order['payment_method'];
+                            ?>
+                            <tr>
+                                <td class="td-id">#<?php echo $order['order_id']; ?></td>
+                                <td>
+                                    <div class="td-name"><?php echo htmlspecialchars($order['username']); ?></div>
+                                    <div class="td-email"><?php echo htmlspecialchars($order['email']); ?></div>
+                                </td>
+                                <td>
+                                    <span class="qty-badge"><?php echo $order['total_items']; ?></span>
+                                </td>
+                                <td>
+                                    <span class="order-method-badge"><?php echo htmlspecialchars($metodo_pago); ?></span>
+                                </td>
+                                <td class="td-price">$<?php echo number_format($order['total'], 2); ?></td>
+                                <td>
+                                    <span class="order-status-badge"><?php echo htmlspecialchars($order['status']); ?></span>
+                                </td>
+                                <td class="td-email"><?php echo date("d/m/Y h:i A", strtotime($order['created_at'])); ?></td>
+                            </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+            <?php else: ?>
+                <div class="content-card empty-state">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#c8c8c0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                    <p>No hay ordenes disponibles</p>
+                </div>
+            <?php endif; ?>
         </section>
 
         <!-- ===== ADMINS ===== -->
