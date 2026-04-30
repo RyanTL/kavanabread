@@ -70,7 +70,7 @@ include(__DIR__ . '/../config/db.php');
                     <small><?php echo htmlspecialchars($_SESSION['email']); ?></small>
                 </div>
             </div>
-            <a href="../index.php" class="btn-logout">
+            <a href="../menu-principal.php" class="btn-logout">
                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
                 Pagina principal
             </a>
