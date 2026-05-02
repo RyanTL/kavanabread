@@ -4,11 +4,18 @@
     <meta charset = "UTF-8">
     <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
     <script src = "https://kit.fontawesome.com/bde2b79879.js" crossorigin = "anonymous"></script>
-    <link rel = "stylesheet" href = "styles/trayectoria.css">
+    <link rel = "stylesheet" href = "styles/seccionsobremi.css">
+    <link rel="stylesheet" href="assets/css/navbar.css"/>
     <title>Kavana Bread | Pantalla Principal</title>
 </head>
 
 <body>
+    <?php 
+        include "navbar.php";
+    ?>
+
+    <!-- La nav bar previa (Gustavo Bauer)
+
     */ La barra amarilla arriba /*
     <div class = "topBarContainer">
         <div class = "topBarContent-right">
@@ -33,37 +40,19 @@
         </div>
     </div>
 
-    */ El cuadrado verde y su contenido /*
+    -->
+
     <div class = "mainContainer">
-        <div class = "mainContent-left">
-
-            */ Imagen de cuadrado verde /*
-            <img src = "imagenes/default_pic.jpg" alt = "pic" srcset = "" class = "mainPic">
-        
-        </div>
-        <div class = "mainContent-right">
-
-            */ Aqui va el mensaje del cuadrado verde /*
-            <p> [ Texto de trayectoria y Logros Personales ] </p>
-
+        <div class = "mainContent">
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Kavana Bread es una panadería artesanal que se enfoca en la fermentación natural y el uso de ingredientes orgánicos de alta calidad. Producimos panes de masa madre con una textura crujiente por fuera y una miga suave por dentro. Nuestra meta es recuperar los métodos tradicionales de panificación, evitando aditivos artificiales para ofrecer un producto más saludable. Cada pieza es elaborada a mano, respetando los tiempos de reposo que requiere el cereal para desarrollar su sabor. Se ofrecen ejemplares como el pan blanco, con granos y combinaciones creativas de semillas. 
+            </p>
+            <br>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                El menú también una variedad de productos de repostería y opciones de brunch artesanales. Igualmente, ofrecemos talleres y recursos para aquellos interesados en aprender el arte de la panadería en casa. La experiencia va más allá de la compra, ya que busca proveer al consumidor con sustento saludable y de la más alta calidad...
+            </p>
         </div>
     </div>
 </body>
-
-*/ Funcion de Javascript para el boton del menu /*
-<script>
-    const menuIcon = document.getElementById("menuIcon");
-    const menuContent = document.getElementById("menuContent");
-
-    menuIcon.addEventListener("click", () => {
-        menuContent.classList.toggle("show");
-    });
-
-    document.addEventListener("click", (e) => {
-        if (!menuIcon.contains(e.target) && !menuContent.contains(e.target)) {
-            menuContent.classList.remove("show");
-        }
-    });
-</script>
 
 </html>

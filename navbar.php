@@ -7,6 +7,7 @@ secciones del sitio (Menú, Panes, Artesanal y Otros) -->
     <a href="seccionpanes.php" class="inicio-tab">Panes</a>
     <a href="seccionartesanal.php" class="inicio-tab">Artesanal</a>
     <a href="seccionotros.php" class="inicio-tab">Otros</a>
+    <a href="seccionsobremi.php" class="inicio-tab">Sobre Mí</a>
   </div>
 
   <nav class="nav-icons">
