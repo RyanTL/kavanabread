@@ -202,7 +202,7 @@
                 <img src="images/mermelada_de_fresa.jpeg" alt="Pan Campesino">
 
                 <div class="product-info">
-                    <h3>Mermelada de Fresa</h3>
+                    <h3>Jalea de Fresa</h3>
                     <div class="product-footer">
                         <a href="seccionartesanal.php" class="add-cart-btn">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
