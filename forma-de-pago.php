@@ -5,12 +5,6 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// Si el usuario no está logueado, lo manda al login
-if (!isset($_SESSION['id'])) {
-    header("Location: iniciar-sesion.php");
-    exit();
-} 
-
 // Conectar a la base de datos
 include("config/db.php");
 
@@ -141,113 +135,159 @@ $metodo_seleccionado = $_POST['metodo_pago'] ?? '';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src = "https://kit.fontawesome.com/bde2b79879.js" crossorigin = "anonymous"></script>
     <title>Forma de Pago – Kavana Bread</title>
+    <link rel = "stylesheet" href = "styles/forma-de-pago.css">
+    <link rel="stylesheet" href="assets/css/navbar.css"/>
+    <script>
+        paypal.Buttons({
+            style: {
+                layout: 'vertical',
+                color: 'gold',
+                shape: 'rect',
+                label: 'paypal'
+            },
 
-    <!-- Falta el CSS de forma de pago -->
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '<?= number_format($total, 2) ?>'
+                        }
+                    }]
+                });
+            },
+
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    alert('Pago completado por ' + details.payer.name.given_name);
+                });
+            }
+
+        }).render('#paypal-button-container');
+    </script>
     
 </head>
 <body>
- 
+
     <!-- Navbar del proyecto -->
     <?php include 'navbar.php'; ?>
  
-    <main>
-        <h1>Seleccionar Forma de Pago</h1>
- 
-        <?php if (!empty($mensaje)): ?>
-            <div class="msg <?= $tipo_mensaje ?>"><?= $mensaje ?></div>
-        <?php endif; ?>
- 
-        <?php if ($tipo_mensaje !== 'exito'): ?>
-        <form action="forma-de-pago.php" method="POST">
-            <div class="pago-grid">
- 
-                <!-- Métodos de pago -->
-                <div class="metodos">
- 
-                    <!-- PayPal -->
-                    <label class="metodo-opcion">
-                        <input type="radio" name="metodo_pago" value="paypal"
-                            <?= $metodo_seleccionado === 'paypal' ? 'checked' : '' ?>>
-                        PayPal
-                    </label>
+    <main class="checkout-container">
+        <h1 class="title">Seleccionar Forma de Pago</h1>
+        <div class="content">
+            <div class="left">
+                
+                <?php if (!empty($mensaje)): ?>
+                    <div class="msg <?= $tipo_mensaje ?>"><?= $mensaje ?></div>
+                <?php endif; ?>
+        
+                <?php if ($tipo_mensaje !== 'exito'): ?>
 
-                    <!-- Google Pay -->
-                    <label class="metodo-opcion">
-                        <input type="radio" name="metodo_pago" value="googlepay"
-                            <?= $metodo_seleccionado === 'googlepay' ? 'checked' : '' ?>>
-                        Google Pay
-                    </label>
- 
-                    <!-- Tarjeta -->
-                    <label class="metodo-opcion">
-                        <input type="radio" name="metodo_pago" value="tarjeta"
-                            <?= $metodo_seleccionado === 'tarjeta' ? 'checked' : '' ?>>
-                        Targeta de Crédito/Débito
-                    </label>
- 
-                    <!-- Formulario de tarjeta -->
-                    <div class="form-tarjeta">
-                        <div>
-                            <label>Número de Targeta</label>
-                            <input type="text" name="numero_tarjeta"
-                                   placeholder="1234123412341234" maxlength="16"
-                                   value="<?= htmlspecialchars($_POST['numero_tarjeta'] ?? '') ?>">
-                        </div>
-                        <div>
-                            <label>Nombre en Targeta</label>
-                            <input type="text" name="nombre_tarjeta" placeholder="Card Name"
-                                   value="<?= htmlspecialchars($_POST['nombre_tarjeta'] ?? '') ?>">
-                        </div>
-                        <div class="form-row-tarjeta">
-                            <div>
-                                <label>Fecha de Expiración</label>
-                                <input type="text" name="fecha_expiracion"
-                                       placeholder="MM/YY" maxlength="5"
-                                       value="<?= htmlspecialchars($_POST['fecha_expiracion'] ?? '') ?>">
-                            </div>
-                            <div>
-                                <label>CVV</label>
-                                <input type="text" name="cvv" placeholder="CVV" maxlength="4"
-                                       value="<?= htmlspecialchars($_POST['cvv'] ?? '') ?>">
-                            </div>
+                <form action="forma-de-pago.php" method="POST">
+                    <div class="pago-grid">
+        
+                        <!-- Métodos de pago -->
+                        <div class="metodos">
+        
+                            <!-- PayPal -->
+                            <label class="metodo-opcion">
+                                <input type="radio" name="metodo_pago" value="paypal"
+                                    <?= $metodo_seleccionado === 'paypal' ? 'checked' : '' ?>>
+                                    PayPal
+                                <div class="metodo-contenido">
+                                    <button class="paypal-demo-btn">
+                                        <img src="https://www.paypalobjects.com/webstatic/icon/pp258.png" alt="PayPal">
+                                        <span>Pagar con PayPal</span>
+                                    </button>
+                                    <p style="font-size: 12px; color: gray; text-align: center; margin-top: 4px;">
+                                        Serás redirigido a PayPal para completar tu pago.
+                                    </p>
+                                </div>
+                            </label>
+
+                            <!-- Tarjeta -->
+                            <label class="metodo-opcion">
+                                <input type="radio" name="metodo_pago" value="tarjeta"
+                                    <?= $metodo_seleccionado === 'tarjeta' ? 'checked' : '' ?>>
+                                    Targeta de Crédito/Débito
+
+                                <!-- Formulario de tarjeta -->
+                                <div class="metodo-contenido">
+                                    <div class="form-column-targeta">
+                                        <label class="form-targeta-title">Número de Targeta</label>
+                                        <input type="text" name="numero_tarjeta"
+                                            placeholder="1234123412341234" maxlength="16"
+                                            value="<?= htmlspecialchars($_POST['numero_tarjeta'] ?? '') ?>">
+                                    </div>
+                                    <div class="form-column-targeta">
+                                        <label class="form-targeta-title">Nombre en Targeta</label>
+                                        <input type="text" name="nombre_tarjeta" placeholder="Nombre en Targeta"
+                                            value="<?= htmlspecialchars($_POST['nombre_tarjeta'] ?? '') ?>">
+                                    </div>
+                                    <div class="form-row-tarjeta">
+                                        <div>
+                                            <label class="form-targeta-title">Fecha de Expiración</label>
+                                            <input type="text" name="fecha_expiracion"
+                                                placeholder="MM/YY" maxlength="5"
+                                                value="<?= htmlspecialchars($_POST['fecha_expiracion'] ?? '') ?>">
+                                        </div>
+                                        <div>
+                                            <label class="form-targeta-title">CVV</label>
+                                            <input type="text" name="cvv" placeholder="CVV" maxlength="4"
+                                                value="<?= htmlspecialchars($_POST['cvv'] ?? '') ?>">
+                                        </div>
+                                    </div>
+                                </div>
+                            </label>
+
+                            <!-- Google Pay -->
+                            <label class="metodo-opcion">
+                                <input type="radio" name="metodo_pago" value="googlepay"
+                                    <?= $metodo_seleccionado === 'googlepay' ? 'checked' : '' ?>>
+                                    Google Pay
+                                <div class="metodo-contenido">
+                                    <button class="google-pay-btn">
+                                        <img src="images/googlepay.png" alt="Google Pay">
+                                        <span>Pagar con Google Pay</span>
+                                    </button>
+                                </div>
+                            </label>
                         </div>
                     </div>
- 
- 
-                </div>
- 
-                <!-- Carrito y resumen -->
+                </form>
+            </div>
+
+            <div class="right">
+            <!-- Carrito y resumen -->
                 <div class="carrito-col">
- 
+
                     <!-- Tu Carrito — viene de $_SESSION['cart_items'] igual que cart.php -->
                     <div class="carrito-box">
-                        <h3>Tu Carrito (<?= count($cart_items) ?>)</h3>
-                        <?php foreach ($cart_items as $item): ?>
-                            <div class="carrito-item">
-                                <div class="item-foto">
-                                    <?php if (!empty($item['imagen']) && file_exists($item['imagen'])): ?>
-                                        <img src="<?= htmlspecialchars($item['imagen']) ?>" alt="<?= htmlspecialchars($item['nombre']) ?>">
-                                    <?php else: ?>
-                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5">
-                                            <rect x="3" y="3" width="18" height="18" rx="2"/>
-                                            <circle cx="8.5" cy="8.5" r="1.5"/>
-                                            <path d="m21 15-5-5L5 21"/>
-                                        </svg>
-                                    <?php endif; ?>
-                                </div>
-                                <div>
-                                    <div class="item-nombre"><?= htmlspecialchars($item['nombre']) ?></div>
-                                    <div class="item-cantidad">x<?= (int)$item['cantidad'] ?></div>
-                                    <div class="item-precio">$<?= number_format($item['precio'] * $item['cantidad'], 2) ?></div>
-                                </div>
+                        <h2>Tu Carrito (<?= count($cart_items) ?>)</h2>
+                        <div class="carrito-scroll-wrapper">
+                            <div class="carrito-items-scroll">
+                                <?php foreach ($cart_items as $item): ?>
+                                    <div class="carrito-item">
+                                        <div class="item-foto">
+                                            <img src="<?= htmlspecialchars($item['imagen']) ?>"
+                                                alt="<?= htmlspecialchars($item['nombre']) ?>"
+                                                onerror="this.onerror=null; this.src='images/default.png';">
+                                        </div>                                   
+                                        <div class="item-info">
+                                            <div class="item-nombre"><?= htmlspecialchars($item['nombre']) ?></div>
+                                            <div class="item-cantidad">x<?= (int)$item['cantidad'] ?></div>
+                                            <div class="item-precio">$<?= number_format($item['precio'] * $item['cantidad'], 2) ?></div>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
                             </div>
-                        <?php endforeach; ?>
+                        </div>
                     </div>
- 
+
                     <!-- Resumen de Orden -->
                     <div class="resumen-box">
-                        <h3>Resumen de Orden</h3>
+                        <h2>Resumen de Orden</h2>
                         <div class="resumen-fila">
                             <span>Subtotal:</span>
                             <span>$<?= number_format($subtotal, 2) ?></span>
@@ -260,15 +300,15 @@ $metodo_seleccionado = $_POST['metodo_pago'] ?? '';
                             <span>Envío:</span>
                             <span>$<?= number_format($shipping_total, 2) ?></span>
                         </div>
-                        <div class="resumen-fila total">
+                        <div class="resumen-fila-total">
                             <span>Total:</span>
                             <span>$<?= number_format($total, 2) ?></span>
                         </div>
                     </div>
- 
                 </div>
-            </div>
- 
+            </div> 
+        </div>
+
             <!-- Botones -->
             <div class="pago-botones">
                 <a href="cart.php" class="btn-regresar">Regresar</a>
@@ -284,6 +324,96 @@ $metodo_seleccionado = $_POST['metodo_pago'] ?? '';
         <?php endif; ?>
  
     </main>
- 
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const radios = document.querySelectorAll('input[name="metodo_pago"]');
+            const tarjetaForm = document.querySelector('.form-tarjeta');
+
+            function updateUI() {
+                const selected = document.querySelector('input[name="metodo_pago"]:checked');
+                const tarjetaForm = document.querySelector('.form-tarjeta');
+
+                tarjetaForm.classList.remove("active");
+
+                if (selected && selected.value === "tarjeta") {
+                    tarjetaForm.classList.add("active");
+                }
+            }
+
+            radios.forEach(radio => {
+                radio.addEventListener("change", updateUI);
+            });
+
+            updateUI();
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const opciones = document.querySelectorAll('.metodo-opcion');
+
+            function updateUI() {
+                opciones.forEach(opcion => {
+                    const radio = opcion.querySelector('input[type="radio"]');
+
+                    if (radio.checked) {
+                        opcion.classList.add('active');
+                    } else {
+                        opcion.classList.remove('active');
+                    }
+                });
+            }
+
+            document.querySelectorAll('input[name="metodo_pago"]').forEach(radio => {
+                radio.addEventListener("change", updateUI);
+            });
+
+            updateUI();
+        });
+
+        document.querySelectorAll('input[name="metodo_pago"]').forEach(radio => {
+            radio.addEventListener('click', function () {
+                if (this.wasChecked) {
+                    this.checked = false;
+                }
+
+                document.querySelectorAll('input[name="metodo_pago"]').forEach(r => {
+                    r.wasChecked = false;
+                });
+
+                this.wasChecked = this.checked;
+
+                document.querySelectorAll('.metodo-opcion').forEach(opcion => {
+                    opcion.classList.remove('active');
+                });
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const scrollBox = document.querySelector(".carrito-items-scroll");
+            const wrapper = document.querySelector(".carrito-scroll-wrapper");
+
+            function updateFade() {
+                const scrollTop = scrollBox.scrollTop;
+                const scrollHeight = scrollBox.scrollHeight;
+                const clientHeight = scrollBox.clientHeight;
+
+                if (scrollTop > 5) {
+                    wrapper.classList.add("show-top");
+                } else {
+                    wrapper.classList.remove("show-top");
+                }
+
+                if (scrollTop + clientHeight < scrollHeight - 5) {
+                    wrapper.classList.add("show-bottom");
+                } else {
+                    wrapper.classList.remove("show-bottom");
+                }
+            }
+
+            scrollBox.addEventListener("scroll", updateFade);
+            updateFade();
+        });
+    </script>
+
 </body>
 </html>
