@@ -8,6 +8,22 @@ if (session_status() == PHP_SESSION_NONE) session_start();
 if (!isset($_SESSION['username'])) { header("Location: login.php"); exit; }
 include(__DIR__ . '/../config/db.php');
 ?>
+
+<?php
+#Para añadir categorias nuevas
+if (isset($_POST['Añadir'])) {
+    $name = $_POST['nombre'];
+ $stmt = $conn->prepare("INSERT INTO category(name)
+            VAlUES (?)");
+
+    $stmt->bind_param("s", $name);
+    $stmt->execute();
+
+            header("Location: panel.php");
+            exit();
+
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
