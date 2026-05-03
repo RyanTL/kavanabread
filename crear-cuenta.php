@@ -57,7 +57,7 @@
 
                 <!-- Correo electrónico -->
                 <div class="form-group-full">
-                    <label for="email">Correo Electronico</label>
+                    <label for="email">Correo Electrónico</label>
                     <div class="input-wrapper">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="2" y="4" width="20" height="16" rx="2"/>
