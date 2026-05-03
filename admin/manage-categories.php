@@ -8,6 +8,21 @@ if (session_status() == PHP_SESSION_NONE) session_start();
 if (!isset($_SESSION['username'])) { header("Location: login.php"); exit; }
 include(__DIR__ . '/../config/db.php');
 ?>
+<?php
+#Para eliminar una categoria
+if (isset($_POST['eliminar'])) {
+    $category_ID = intval($_POST['category_ID']);
+    $stmt = $conn->prepare("DELETE FROM category
+    WHERE category_ID = ?");
+    $stmt->bind_param("i", $category_ID);
+    $stmt->execute();
+
+    header("Location: panel.php");
+    exit();
+    
+    
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -93,15 +108,20 @@ include(__DIR__ . '/../config/db.php');
                     <?php
                     $catResult = mysqli_query($conn, "SELECT category_ID, name FROM category");
                     while ($cat = mysqli_fetch_array($catResult)) { ?>
+                     <form method="POST">
                     <tr>
                         <td class="td-id">#<?php echo $cat['category_ID']; ?></td>
                         <td class="td-name"><?php echo htmlspecialchars($cat['name']); ?></td>
+                    
+                        <input type="hidden" name= "category_ID" value="<?php echo $cat['category_ID']; ?>">
                         <td class="td-actions">
-                            <button type="button" class="btn-danger btn-danger-sm" style="min-width:160px; justify-content:center;" onclick="return confirm('¿Eliminar esta categoria?');">
+                            <button type="submit" name="eliminar" class="btn-danger btn-danger-sm" style="min-width:160px; justify-content:center;" onclick="return confirm('¿Eliminar esta categoria?');">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
                                 Eliminar
                             </button>
+                          
                         </td>
+                          </form>
                     </tr>
                     <?php } ?>
                 </tbody>
