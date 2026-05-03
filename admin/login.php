@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel – Kavana Bread</title>
+    <title>Panel de Admin – Kavana Bread</title>
     <link rel="stylesheet" href="/kavanabread/assets/styles.css">
 </head>
 
@@ -23,7 +23,7 @@
 
         <!-- Panel derecho: Formulario -->
         <div class="card-right">
-            <h1>Admin Panel</h1>
+            <h1>Panel de Admin</h1>
 
             <form action="login.php" method="POST">
 
@@ -35,7 +35,7 @@
                             <rect x="2" y="4" width="20" height="16" rx="2"/>
                             <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
                         </svg>
-                        <input type="email" id="email" name="email" placeholder="Admin Email">
+                        <input type="email" id="email" name="email" placeholder="Correo Electronico Admin">
                     </div>
                 </div>
 
