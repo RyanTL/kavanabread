@@ -15,6 +15,16 @@ if (isset($_POST['Añadir'])) {
     $precio = floatval($_POST['precio']);
     $cantidad = intval($_POST['cantidad']);
     $categoria= intval($_POST['categoria']);
+    $imagen_path = NULL;
+  // Este if statement es para añadir la imagen 
+    if (!empty($_FILES['imagen']['name'])){
+        $carpeta = __DIR__ . '/../assets/products/';
+        if (!is_dir($carpeta)) mkdir($carpeta, 0755, true);
+        $extencion = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
+        $nombre_archivo = uniqid('prod_') . '.' . $extension;
+        move_uploaded_file($_FILES['imagen']['tmp_name'], $carpeta . $nombre_archivo);
+        $imagen_path = 'assets/products/' . $nombre_archivo;
+    }
 
  $stmt = $conn->prepare("INSERT INTO products(Product_Name, Price, Quantity, category_ID)
             VAlUES (?, ?, ?, ?)");
@@ -73,7 +83,7 @@ if (isset($_POST['Añadir'])) {
                     <small><?php echo htmlspecialchars($_SESSION['email']); ?></small>
                 </div>
             </div>
-            <a href="../logout.php" class="btn-logout">
+            <a href="../logout.php" class="mobile-nav-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
                 Cerrar sesión
             </a>
@@ -94,11 +104,17 @@ if (isset($_POST['Añadir'])) {
         </div>
 
         <div class="content-card admin-form-card">
-            <form action="add-product.php" method="POST" class="admin-form">
+            <form action="add-product.php" method="POST" enctype="multipart/from-data" class="admin-form">
                 <div class="admin-form-field">
                     <label for="nombre">Nombre del Producto</label>
                     <input type="text" id="nombre" name="nombre" placeholder="Ej. Pan Sobao" required>
                 </div>
+
+                <div class="admin-form-field">
+                    <laber for="imagen">Imagen del Producto</laber>
+                    <input type="file" id="imagen" name="imagen" accept="image/*">
+                </div>
+
                 <div class="admin-form-field">
                     <label for="categoria">Categoria</label>
                     <select id="categoria" name="categoria" required>
@@ -147,7 +163,7 @@ if (isset($_POST['Añadir'])) {
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
             <span>Admins</span>
         </a>
-        <a href="../logout.php" class="mobile-nav-item">
+        <a href="login.php" class="mobile-nav-item">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
             <span>Salir</span>
         </a>
@@ -155,4 +171,6 @@ if (isset($_POST['Añadir'])) {
 
 </body>
 </html>
+
+
 
