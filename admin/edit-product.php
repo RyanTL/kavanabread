@@ -21,15 +21,30 @@ if (isset($_POST['Editar'])) {
     $precio = floatval($_POST['precio']);
     $cantidad = intval($_POST['cantidad']);
     $categoria= intval($_POST['categoria']);
+    
 
- $stmt = $conn->prepare("UPDATE products
+    //Esto es para guardar la imagen nueva
+     if (!empty($_FILES['imagen']['name'])) {
+        $carpeta = __DIR__ . '/../assets/products/';
+        if (!is_dir($carpeta)) mkdir($carpeta, 0755, true);
+        $extension      = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
+        $nombre_archivo = uniqid('prod_') . '.' . $extension;
+        move_uploaded_file($_FILES['imagen']['tmp_name'], $carpeta . $nombre_archivo);
+        $imagen_path = 'assets/products/' . $nombre_archivo;
+
+        $stmt = $conn->prepare("UPDATE products SET Product_Name=?, Price=?, Quantity=?, category_ID=?, imagen=? WHERE Product_ID=?");
+        $stmt->bind_param("sdiisi", $nombre, $precio, $cantidad, $categoria, $imagen_path, $id);
+    } else {
+        // Si no hay imagen nueva se queda la que esta
+        $stmt = $conn->prepare("UPDATE products
  SET Product_Name= ?, Price= ?, Quantity= ?, category_ID= ?
             WHERE Product_ID= ?");
-    $stmt->bind_param("sdiii", $nombre, $precio, $cantidad, $categoria, $id);
+     $stmt->bind_param("sdiii", $nombre, $precio, $cantidad, $categoria, $id); 
+    }
+
     $stmt->execute();
            header("Location: panel.php");
             exit();
-
 
 }
 ?>
@@ -116,7 +131,7 @@ $stmt = $conn->prepare("DELETE FROM products
         </div>
 
         <div class="content-card admin-form-card">
-            <form action="edit-product.php" method="POST" class="admin-form">
+            <form action="edit-product.php" method="POST" enctype="multipart/form-data" class="admin-form">
                 <input type="hidden" name="id" value="<?php echo $id; ?>">
                 <div class="admin-form-field">
                     <label for="nombre">Nombre del Producto</label>
@@ -124,6 +139,17 @@ $stmt = $conn->prepare("DELETE FROM products
                         value="<?php echo $product ? htmlspecialchars($product['Product_Name']) : ''; ?>"
                         placeholder="Nombre del producto" required>
                 </div>
+                 
+                  <div class="admin-form-field">
+                 <label for="imagen">Imagen del Producto</label>
+                 <?php if (!empty($product['imagen'])): ?>
+                 <img src="/kavanabread/<?php echo htmlspecialchars($product['imagen']); ?>" 
+                style="width:80px; height:80px; object-fit:cover; border-radius:8px; margin-bottom:8px;">
+                <small style="color:#9ca3af;">Sube una nueva imagen para reemplazarla</small>
+                <?php endif; ?>
+                 <input type="file" id="imagen" name="imagen" accept="image/*">
+                    </div>
+
                 <div class="admin-form-field">
                     <label for="categoria">Categoria</label>
                     <select id="categoria" name="categoria" required>
@@ -182,7 +208,7 @@ $stmt = $conn->prepare("DELETE FROM products
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
             <span>Ordenes</span>
         </a>
-        <a href="../logout.php" class="mobile-nav-item">
+        <a href="login.php" class="mobile-nav-item">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
             <span>Salir</span>
         </a>
