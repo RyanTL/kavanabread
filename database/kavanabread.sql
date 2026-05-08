@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 27, 2026 at 04:13 PM
+-- Generation Time: May 08, 2026 at 06:31 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -27,6 +27,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `cart`
 --
 
+DROP TABLE IF EXISTS `cart`;
 CREATE TABLE `cart` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -46,6 +47,7 @@ INSERT INTO `cart` (`id`, `user_id`, `status`) VALUES
 -- Table structure for table `cart_products`
 --
 
+DROP TABLE IF EXISTS `cart_products`;
 CREATE TABLE `cart_products` (
   `cart_id` int(11) NOT NULL,
   `id` int(11) NOT NULL,
@@ -60,6 +62,7 @@ CREATE TABLE `cart_products` (
 -- Table structure for table `category`
 --
 
+DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category` (
   `category_ID` int(11) NOT NULL,
   `name` varchar(100) NOT NULL
@@ -80,6 +83,7 @@ INSERT INTO `category` (`category_ID`, `name`) VALUES
 -- Table structure for table `login`
 --
 
+DROP TABLE IF EXISTS `login`;
 CREATE TABLE `login` (
   `user_id` int(11) NOT NULL,
   `username` varchar(20) NOT NULL,
@@ -103,6 +107,7 @@ INSERT INTO `login` (`user_id`, `username`, `lastname`, `email`, `password`) VAL
 -- Table structure for table `loginadmins`
 --
 
+DROP TABLE IF EXISTS `loginadmins`;
 CREATE TABLE `loginadmins` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
@@ -123,6 +128,7 @@ INSERT INTO `loginadmins` (`id`, `user_id`) VALUES
 -- Table structure for table `orders`
 --
 
+DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders` (
   `order_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -140,6 +146,7 @@ CREATE TABLE `orders` (
 -- Table structure for table `order_items`
 --
 
+DROP TABLE IF EXISTS `order_items`;
 CREATE TABLE `order_items` (
   `order_item_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
@@ -157,34 +164,36 @@ CREATE TABLE `order_items` (
 -- Table structure for table `products`
 --
 
+DROP TABLE IF EXISTS `products`;
 CREATE TABLE `products` (
   `Product_ID` int(11) NOT NULL,
   `Product_Name` varchar(50) NOT NULL,
   `category_ID` int(11) NOT NULL,
   `Price` decimal(6,2) NOT NULL,
-  `Quantity` int(11) NOT NULL
+  `Quantity` int(11) NOT NULL,
+  `imagen` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`Product_ID`, `Product_Name`, `category_ID`, `Price`, `Quantity`) VALUES
-(1, 'Pan Blanco', 1, 1.25, 15),
-(2, 'Pan de Semillas', 1, 2.09, 15),
-(3, 'Pan de Canela y Pasas', 1, 2.00, 1),
-(4, 'Pan de Curcuma', 1, 2.00, 1),
-(5, 'Pan de Avena y Miel', 1, 2.00, 1),
-(6, 'Mantequilla fresca', 2, 6.00, 1),
-(7, 'Jalea de Fresa', 2, 5.00, 1),
-(8, 'Jalea de Blueberry', 2, 5.00, 1),
-(9, 'Mantequilla Cilantro (3oz)', 2, 5.00, 15),
-(12, 'Mantequilla Cilantro (8oz)', 2, 12.00, 10),
-(13, 'Nueces y Almendras con Caramelo', 2, 5.00, 25),
-(16, 'Nueces y Almendras con Caramelo', 3, 5.00, 1),
-(17, 'Cocacha Pan Italiano', 3, 8.00, 1),
-(18, 'Tiavaca(4)', 3, 6.00, 1),
-(19, 'Granola mix masa madre', 3, 5.00, 1);
+INSERT INTO `products` (`Product_ID`, `Product_Name`, `category_ID`, `Price`, `Quantity`, `imagen`) VALUES
+(1, 'Pan Blanco', 1, 1.25, 15, 'assets/products/prod_69fe00e18003e.jpeg'),
+(2, 'Pan de Semillas', 1, 2.09, 15, 'assets/products/prod_69fe0257b9499.jpeg'),
+(3, 'Pan de Canela y Pasas', 1, 2.00, 1, 'assets/products/prod_69fe02643844f.jpeg'),
+(4, 'Pan de Curcuma', 1, 2.00, 1, 'assets/products/prod_69fe027b277f4.jpeg'),
+(5, 'Pan de Avena y Miel', 1, 2.00, 1, NULL),
+(6, 'Mantequilla fresca', 2, 6.00, 1, 'assets/products/prod_69fe02982bf87.jpeg'),
+(7, 'Jalea de Fresa', 2, 5.00, 1, 'assets/products/prod_69fe02a6ac393.jpeg'),
+(8, 'Jalea de Blueberry', 2, 5.00, 1, 'assets/products/prod_69fe02afa5ea7.jpeg'),
+(9, 'Mantequilla Cilantro (3oz)', 2, 5.00, 15, NULL),
+(12, 'Mantequilla Cilantro (8oz)', 2, 12.00, 10, NULL),
+(13, 'Nueces y Almendras con Caramelo', 2, 5.00, 25, NULL),
+(16, 'Nueces y Almendras con Caramelo', 3, 5.00, 1, NULL),
+(17, 'Cocacha Pan Italiano', 1, 8.00, 1, NULL),
+(18, 'Tiavaca(4)', 3, 6.00, 1, 'assets/products/prod_69fe030c68de8.jpeg'),
+(19, 'Granola mix masa madre', 3, 5.00, 1, 'assets/products/prod_69fe031662af7.jpeg');
 
 --
 -- Indexes for dumped tables
@@ -267,7 +276,7 @@ ALTER TABLE `cart_products`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `category_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `category_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `login`
@@ -297,7 +306,7 @@ ALTER TABLE `order_items`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `Product_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `Product_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Constraints for dumped tables
@@ -344,3 +353,4 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
