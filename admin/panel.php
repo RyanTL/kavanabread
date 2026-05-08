@@ -4,11 +4,7 @@
  * Autor Backend: Kelvin Acosta
  * Proyecto: KavanaBread
  */
-if (session_status() == PHP_SESSION_NONE) session_start();
-if (!isset($_SESSION['username'])) {
-    header("Location: login.php");
-    exit;
-}
+require_once(__DIR__ . '/auth.php');
 include(__DIR__ . '/../config/db.php');
 ?>
 
@@ -36,7 +32,7 @@ include(__DIR__ . '/../config/db.php');
     <header class="mobile-header">
         <img src="../assets/logo.png" alt="Kavana Bread" class="mobile-logo">
         <span class="mobile-page-title" id="mobile-title">Inventario</span>
-        <a href="login.php" class="mobile-logout-icon" title="Cerrar sesión">
+        <a href="../logout.php" class="mobile-logout-icon" title="Cerrar sesión">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
         </a>
     </header>
@@ -74,7 +70,7 @@ include(__DIR__ . '/../config/db.php');
                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
                 Pagina principal
             </a>
-            <a href="login.php" class="btn-logout">
+            <a href="../logout.php" class="btn-logout">
                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
                 Cerrar sesión
             </a>
@@ -299,7 +295,7 @@ include(__DIR__ . '/../config/db.php');
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
             <span>Inicio</span>
         </a>
-        <a href="login.php" class="mobile-nav-item">
+        <a href="../logout.php" class="mobile-nav-item">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
             <span>Salir</span>
         </a>

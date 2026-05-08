@@ -1,3 +1,8 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 <!-- Barra de navegación superior con logo y enlaces principales a las 
 secciones del sitio (Menú, Panes, Artesanal y Otros) -->
 <header class="navbar">
@@ -8,6 +13,9 @@ secciones del sitio (Menú, Panes, Artesanal y Otros) -->
     <a href="seccionartesanal.php" class="inicio-tab">Artesanal</a>
     <a href="seccionotros.php" class="inicio-tab">Otros</a>
     <a href="seccionsobremi.php" class="inicio-tab">Sobre Mí</a>
+    <?php if (isset($_SESSION['username']) && ($_SESSION['is_admin'] ?? false) === true) : ?>
+      <a href="admin/panel.php" class="inicio-tab">Panel Admin</a>
+    <?php endif; ?>
   </div>
 
   <nav class="nav-icons">
@@ -41,10 +49,19 @@ secciones del sitio (Menú, Panes, Artesanal y Otros) -->
       <i class="fas fa-shopping-cart"></i>
     </a>
 
-    <!-- Icono de usuario -->
-    <a href="crear-cuenta.php" title="Usuario">
-      <i class="fas fa-user"></i>
-    </a>
+    <?php if (isset($_SESSION['username'])) : ?>
+      <!-- Cerrar sesion -->
+      <a href="logout.php" title="Cerrar sesión">
+        <i class="fas fa-right-from-bracket"></i>
+        <span class="icon-tooltip">Cerrar sesión</span>
+      </a>
+    <?php else : ?>
+      <!-- Iniciar sesion -->
+      <a href="iniciar-sesion.php" title="Iniciar sesión">
+        <i class="fas fa-user"></i>
+        <span class="icon-tooltip">Iniciar sesión</span>
+      </a>
+    <?php endif; ?>
 
   </nav>
 

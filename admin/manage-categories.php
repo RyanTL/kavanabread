@@ -4,8 +4,7 @@
  * Autor Backend: Kelvin Acosta
  * Proyecto: KavanaBread
  */
-if (session_status() == PHP_SESSION_NONE) session_start();
-if (!isset($_SESSION['username'])) { header("Location: login.php"); exit; }
+require_once(__DIR__ . '/auth.php');
 include(__DIR__ . '/../config/db.php');
 ?>
 <?php
@@ -69,7 +68,7 @@ if (isset($_POST['eliminar'])) {
                     <small><?php echo htmlspecialchars($_SESSION['email']); ?></small>
                 </div>
             </div>
-            <a href="login.php" class="btn-logout">
+            <a href="../logout.php" class="btn-logout">
                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
                 Cerrar sesión
             </a>
@@ -143,7 +142,7 @@ if (isset($_POST['eliminar'])) {
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
             <span>Admins</span>
         </a>
-        <a href="login.php" class="mobile-nav-item">
+        <a href="../logout.php" class="mobile-nav-item">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
             <span>Salir</span>
         </a>

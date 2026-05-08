@@ -4,8 +4,7 @@
  * Autor Backend: Kelvin Acosta
  * Proyecto: KavanaBread
  */
-if (session_status() == PHP_SESSION_NONE) session_start();
-if (!isset($_SESSION['username'])) { header("Location: login.php"); exit; }
+require_once(__DIR__ . '/auth.php');
 include(__DIR__ . '/../config/db.php');
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
@@ -96,7 +95,7 @@ $stmt = $conn->prepare("DELETE FROM products
                     <small><?php echo htmlspecialchars($_SESSION['email']); ?></small>
                 </div>
             </div>
-            <a href="login.php" class="btn-logout">
+            <a href="../logout.php" class="btn-logout">
                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
                 Cerrar sesión
             </a>
@@ -183,7 +182,7 @@ $stmt = $conn->prepare("DELETE FROM products
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
             <span>Ordenes</span>
         </a>
-        <a href="login.php" class="mobile-nav-item">
+        <a href="../logout.php" class="mobile-nav-item">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
             <span>Salir</span>
         </a>

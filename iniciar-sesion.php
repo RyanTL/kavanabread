@@ -45,6 +45,12 @@
                         $_SESSION['email'] = $fila['email'];
                         $_SESSION['username'] = $fila['username'];
 
+                        $stmtAdmin = $conn->prepare("SELECT 1 FROM loginadmins WHERE user_id = ? LIMIT 1");
+                        $stmtAdmin->bind_param("i", $fila['user_id']);
+                        $stmtAdmin->execute();
+                        $adminResult = $stmtAdmin->get_result();
+                        $_SESSION['is_admin'] = $adminResult->num_rows > 0;
+
                         header("Location: menu-principal.php");
                         exit();
                     }
