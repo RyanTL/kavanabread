@@ -105,6 +105,7 @@ include(__DIR__ . '/../config/db.php');
                         <tr>
                             <th>ID</th>
                             <th>Producto</th>
+                            <th>Imagen</th>
                             <th>Categoria</th>
                             <th>Precio</th>
                             <th>Cantidad</th>
@@ -122,6 +123,14 @@ include(__DIR__ . '/../config/db.php');
                         <tr>
                             <td class="td-id">#<?php echo $show['Product_ID']; ?></td>
                             <td class="td-name"><?php echo htmlspecialchars($show['Product_Name']); ?></td>
+                            <td>
+                                <?php if (!empty($show['imagen'])): ?>
+                                    <img src="/kavanabread/<?php echo htmlspecialchars($show['imagen']); ?>"
+                                     style="width:45px; height:45px; object-fit:cover; border-radius:6px;">
+                                    <?php else: ?>
+                                     <span style="color:#9ca3af; font-size:12px;">Sin imagen</span>
+                                     <?php endif; ?>
+                            </td>
                              <td class="td-category_name"><?php echo htmlspecialchars($show['category_name']); ?></td>
                             <td class="td-price">$<?php echo $show['Price']; ?></td>
                             <td class="td-qty">
@@ -295,7 +304,7 @@ include(__DIR__ . '/../config/db.php');
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
             <span>Inicio</span>
         </a>
-        <a href="../logout.php" class="mobile-nav-item">
+         <a href="../logout.php" class="mobile-nav-item">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
             <span>Salir</span>
         </a>
