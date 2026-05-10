@@ -19,6 +19,11 @@ if (session_status() == PHP_SESSION_NONE) {
         include "navbar.php";
     ?>
 
+    <?php
+        $helpFile = "help-content/sobremi.html";
+        include "help.php";
+    ?>
+
     <!-- La nav bar previa (Gustavo Bauer)
 
     */ La barra amarilla arriba /*

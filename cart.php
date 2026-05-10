@@ -45,6 +45,11 @@ $cart_items = $_SESSION['cart_items'];
 en esta página -->
 <?php include 'navbar.php'; ?>
 
+<?php
+    $helpFile = "help-content/cart.html";
+    include "help.php";
+?>
+
 <!-- Título de la sección -->
 <main>
     <h1 class="page-title">

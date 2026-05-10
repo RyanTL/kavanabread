@@ -74,6 +74,11 @@ $stmt = $conn->prepare("DELETE FROM products
 </head>
 <body class="admin-layout">
 
+    <?php
+        $helpFile = "../help-content/editar.html";
+        include "../help.php";
+    ?>
+
     <!-- MOBILE HEADER -->
     <header class="mobile-header">
         <a href="panel.php" class="mobile-back-icon" title="Volver">

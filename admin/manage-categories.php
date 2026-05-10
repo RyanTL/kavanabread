@@ -32,6 +32,11 @@ if (isset($_POST['eliminar'])) {
 </head>
 <body class="admin-layout">
 
+    <?php
+        $helpFile = "../help-content/manage.html";
+        include "../help.php";
+    ?>
+
     <!-- MOBILE HEADER -->
     <header class="mobile-header">
         <a href="panel.php" class="mobile-back-icon" title="Volver">

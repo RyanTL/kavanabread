@@ -47,6 +47,11 @@ if (isset($_POST['Añadir'])) {
 </head>
 <body class="admin-layout">
 
+    <?php
+        $helpFile = "../help-content/anadir.html";
+        include "../help.php";
+    ?>
+
     <!-- MOBILE HEADER -->
     <header class="mobile-header">
         <a href="panel.php" class="mobile-back-icon" title="Volver">
