@@ -26,6 +26,11 @@ if (session_status() == PHP_SESSION_NONE) {
 en esta página -->
 <?php include 'navbar.php'; ?>
 
+<?php
+  $helpFile = "help-content/artesanal.html";
+  include "help.php";
+?>
+
 <main>
   <!-- Título de la sección -->
   <h1 class="main-title">Sección de Artesanal</h1>

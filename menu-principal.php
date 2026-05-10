@@ -20,6 +20,11 @@ if (session_status() == PHP_SESSION_NONE) {
         include "navbar.php";
     ?>
 
+    <?php
+        $helpFile = "help-content/menu.html";
+        include "help.php";
+    ?>
+
     <!-- Top Bar que hice originalmente (Gustavo Bauer)
 
     <div class="topBarContainer">

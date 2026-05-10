@@ -172,6 +172,11 @@ $metodo_seleccionado = $_POST['metodo_pago'] ?? '';
 
     <!-- Navbar del proyecto -->
     <?php include 'navbar.php'; ?>
+
+    <?php
+        $helpFile = "help-content/pago.html";
+        include "help.php";
+    ?>
  
     <main class="checkout-container">
         <h1 class="title">Seleccionar Forma de Pago</h1>

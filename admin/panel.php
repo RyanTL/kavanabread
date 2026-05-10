@@ -28,6 +28,11 @@ include(__DIR__ . '/../config/db.php');
 </head>
 <body class="admin-layout">
 
+    <?php
+        $helpFile = "../help-content/panel.html";
+        include "../help.php";
+    ?>
+
     <!-- MOBILE HEADER (hidden on desktop) -->
     <header class="mobile-header">
         <img src="../assets/logo.png" alt="Kavana Bread" class="mobile-logo">
