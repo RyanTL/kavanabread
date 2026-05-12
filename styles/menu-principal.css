@@ -1,14 +1,17 @@
+/* Reset básico: elimina márgenes/padding y mejora cálculo de tamaños */
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Estilo general del body */
 body {
     background-color: #fff;
     font-family: 'Segoe UI', sans-serif;
 }
 
+/* Barra superior fija */
 .topBarContainer {
     background-color: #FDD179;
     position: sticky;
@@ -16,6 +19,7 @@ body {
     z-index: 1000;
 }
 
+/* Contenedor interno del navbar */
 .topBarInner {
     width: 80%;
     max-width: 1440px;
@@ -26,17 +30,20 @@ body {
     align-items: center;
 }
 
+/* Sección derecha del navbar (logo + links) */
 .topBarContent-right {
     display: flex;
     align-items: center;
     gap: 2.5em;
 }
 
+/* Links de navegación */
 .navLinks {
     display: flex;
     gap: 2em;
 }
 
+/* Estilo de cada link */
 .navLinks a {
     font-size: 22px;
     text-decoration: none;
@@ -45,10 +52,12 @@ body {
     white-space: nowrap;
 }
 
+/* Color al pasar el mouse */
 .navLinks a:hover {
     color: #496B5B;
 }
 
+/* Íconos del lado izquierdo */
 .topBarContent-left {
     display: flex;
     align-items: center;
@@ -56,6 +65,7 @@ body {
     font-size: 22px;
 }
 
+/* Botones de iconos */
 .navIcon {
     display: flex;
     align-items: center;
@@ -64,24 +74,26 @@ body {
     text-decoration: none;
 }
 
+/* Tamaño de SVG */
 .navIcon svg {
     width: 1em;
     height: 1em;
     stroke-width: 2.2;
 }
 
+/* Hover en iconos */
 .navIcon:hover {
     color: #496B5B;
 }
 
-/* Base nav item behavior */
+/* Línea animada debajo de links */
 .nav-link,
 .navIcon {
     position: relative;
     transition: color 0.3s ease;
 }
 
-/* Underline */
+/* Mostrar línea al pasar mouse */
 .nav-link::after,
 .navIcon::after {
     content: "";
@@ -96,11 +108,13 @@ body {
     transition: transform 0.3s ease;
 }
 
+/* Hover en iconos */
 .nav-link:hover,
 .navIcon:hover {
     color: #496B5B;
 }
 
+/* Línea animada debajo de links */
 .nav-link:hover::after,
 .navIcon:hover::after {
     transform: scaleX(1);
@@ -111,15 +125,18 @@ body {
     color: #496B5B;
 }
 
+/* Mostrar línea al pasar mouse */
 .nav-link.active::after,
 .navIcon.active::after {
     transform: scaleX(1);
 }
 
+/* Contenedor del usuario */
 .userContainer {
     position: relative;
 }
 
+/* Menú desplegable del usuario */
 .userContent {
     position: absolute;
     top: calc(100% + 16px);
@@ -135,10 +152,12 @@ body {
     box-shadow: 0 6px 10px #00000033;
 }
 
+/* Mostrar cuando activo */
 .userContent.show {
     display: flex;
 }
 
+/* Flechita del dropdown */
 .userContent::before {
     content: "";
     position: absolute;
@@ -152,6 +171,7 @@ body {
     transform: rotate(45deg);
 }
 
+/* Links dentro del dropdown */
 .userContent a {
     padding: 10px;
     text-decoration: none;
@@ -161,6 +181,7 @@ body {
     border-bottom: 2px solid #496B5B;
 }
 
+/* Logo principal */
 .mainLogo {
     width: 110px;
     height: auto;
@@ -168,10 +189,12 @@ body {
     position: static;
 }
 
+/* Color "default" de texto en botones o links */
 a {
     color: #000;
 }
 
+/* Modal de confirmación */
 .modal {
     display: none;
     position: fixed;
@@ -182,10 +205,12 @@ a {
     z-index: 5000;
 }
 
+/* Mensaje del Modal */
 .modal-text {
     font-size: 24px;
 }
 
+/* Caja del modal */
 .modal-box {
     background: #f9f9f9;
     padding: 1em;
@@ -196,12 +221,14 @@ a {
     border-radius: 0.8em;
 }
 
+/* Botónes del modal */
 .modal-buttons {
     margin-top: 3em;
     display: flex;
     justify-content: space-between;
 }
 
+/* Botón del modal */
 .modal button {
     padding: 8px 16px;
     border: none;
@@ -209,6 +236,7 @@ a {
     cursor: pointer;
 }
 
+/* Botón de confimar salida */
 #confirmExit {
     background: #c0392b;
     color: #fff;
@@ -216,6 +244,7 @@ a {
     min-width: 6em;
 }
 
+/* Botón de cancelar salida */
 #cancelExit {
     background: #496B5B;
     color: #fff;
@@ -223,10 +252,12 @@ a {
     min-width: 6em;
 }
 
+/* Espacio sobre cada título */
 h2 {
     margin-top: 3em;
 }
 
+/* Sección de productos */
 .products-section {
     width: 80%;
     max-width: 1440px;
@@ -234,6 +265,7 @@ h2 {
     margin-bottom: 5em;
 }
 
+/* Títulos de cada sección */
 .section-title {
     font-size: 36px;
     margin-bottom: 1.5em;
@@ -241,12 +273,14 @@ h2 {
     text-align: center;
 }
 
+/* Grid responsivo de productos para la estructura */
 .products-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2em;
 }
 
+/* Tarjeta de cada producto */
 .product-card {
     background: #FDD179;
     overflow: hidden;
@@ -254,40 +288,47 @@ h2 {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Efecto hover */
 .product-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 12px 22px #00000044;
 }
 
+/* Imagen producto */
 .product-card img {
     width: 100%;
     height: 360px;
     object-fit: cover;
 }
 
+/* Información del producto */
 .product-info {
     padding: 1em;
     text-align: center;
     color: #000;
 }
 
+/* Título del producto */
 .product-info h3 {
     font-size: 22px;
     margin-bottom: 1em;
 }
 
+/* Parte inferior de la carta del producto */
 .product-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+/* Precio del producto */
 .price {
     font-size: 20px;
     font-weight: bold;
     color: #496B5B;
 }
 
+/* Botón "Ver más" */
 .add-cart-btn {
     background: #496B5B;
     color: #fff;
@@ -304,16 +345,19 @@ h2 {
     text-decoration: none;
 }
 
+/* Hover botón */
 .add-cart-btn:hover {
     background: #2a4739;
     transform: scale(1.05);
 }
 
+/* Tamaño de carrito al lado de "Ver Más" */
 .add-cart-btn svg {
     width: 16px;
     height: 16px;
 }
 
+/* Responsivo en pantalla mediana o pequeña */
 @media (max-width: 1110px) {
     .navLinks {
         gap: 1.2em;

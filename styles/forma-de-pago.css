@@ -1,12 +1,15 @@
+/* Asegura que el fondo general de toda la página sea blanco */
 body {
     background-color: #fff;
 }
 
+/* Elimina márgenes por defecto y añade espacio debajo de títulos */
 .title, h2 {
     margin: 0;
     margin-bottom: 16px;
 }
 
+/* Contenedor principal del checkout (centra y estiliza toda la página) */
 .checkout-container {
     background-color: #fff;
     display: grid;
@@ -22,6 +25,7 @@ body {
     box-shadow: 0 8px 16px #00000033;
 }
 
+/* Divide el contenido en dos columnas (izquierda y derecha) */
 .content {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -29,11 +33,13 @@ body {
     margin-top: 0;
 }
 
+/* Contenedor vertical para los métodos de pago */
 .metodos {
     display: flex;
     flex-direction: column;
 }
 
+/* Cada opción de método de pago */
 .metodo-opcion {
     background-color: #f5f5f5;
     padding: 0.8em;
@@ -45,20 +51,24 @@ body {
     font-size: 20px;
 }
 
+/* Cambia el fondo al pasar el mouse */
 .metodo-opcion:hover {
     background-color: #e5e5e5;
 }
 
+/* Estilo del radio button (botón circular) */
 .metodo-opcion input[type="radio"] {
     transform: scale(1.4);
     accent-color: #496B5B;
     margin-right: 10px;
 }
 
+/* Cambia el cursor de inputs a texto */
 .metodo-opcion input {
     cursor: text;
 }
 
+/* Contenido oculto del método (ej: formulario tarjeta) */
 .metodo-contenido {
     max-height: 0;
     opacity: 0;
@@ -67,21 +77,21 @@ body {
     font-size: 16px;
 }
 
+/* Cuando el método está activo, se muestra */
 .metodo-opcion.active .metodo-contenido {
     margin-top: 16px;
     max-height: 300px;
     opacity: 1;
 }
 
+/* Botón estilo PayPal */
 .paypal-demo-btn {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-
     width: 100%;
     height: 50px;
-
     background-color: #ffc439;
     color: #111;
     border: none;
@@ -91,74 +101,83 @@ body {
     cursor: pointer;
 }
 
+/* Imagen dentro del botón PayPal */
 .paypal-demo-btn img {
     height: 20px;
 }
 
+/* Contenedor de inputs de tarjeta en columna */
 .form-column-targeta {
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
 }
 
+/* Fila con dos inputs (fecha y CVV) */
 .form-row-tarjeta {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
 }
 
+/* Asegura distribución vertical dentro de cada campo */
 .form-row-tarjeta div {
     display: flex;
     flex-direction: column;
 }
 
+/* Inputs ocupan todo el ancho */
 .form-row-tarjeta input {
     width: 100%;
 }
 
+/* Títulos de cada campo de tarjeta */
 .form-targeta-title {
     margin-bottom: 2px;
 }
 
+/* Organización interna del contenido expandido */
 .metodo-contenido {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
+/* Estilo de inputs dentro de métodos */
 .metodo-contenido input {
     padding: 6px 8px;
     border-radius: 8px;
     border: 1px solid #ccc;
 }
 
+/* Botón de Google Pay */
 .google-pay-btn {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-
     width: 100%;
     height: 50px;
-
     background-color: #000;
     color: #fff;
     border: none;
     border-radius: 25px;
-
     font-weight: bold;
     cursor: pointer;
 }
 
+/* Imagen dentro del botón Google Pay */
 .google-pay-btn img {
     height: 20px;
 }
 
+/* Efecto al presionar botones de pago */
 .paypal-demo-btn:active,
 .google-pay-btn:active {
     transform: scale(0.97);
 }
 
+/* Columna derecha (carrito y resumen) */
 .right {
     background-color: #FDD179;
     border: 2px solid #000;
@@ -169,16 +188,13 @@ body {
     flex-direction: column;
 }
 
-.right {
-    display: flex;
-    flex-direction: column;
-}
-
+/* Contenedor general del carrito */
 .carrito-box {
     display: flex;
     flex-direction: column;
 }
 
+/* Lista scrollable de productos */
 .carrito-items-scroll {
     position: relative;
     overflow-y: auto;
@@ -190,16 +206,19 @@ body {
     overflow: hidden auto;
 }
 
+/* Oculta scrollbar en Chrome */
 .carrito-items-scroll::-webkit-scrollbar {
     display: none;
 }
 
+/* Wrapper para aplicar efectos de sombra en scroll */
 .carrito-scroll-wrapper {
     position: relative;
     flex: 1;
     overflow: hidden;
 }
 
+/* Gradientes superiores e inferiores (efecto fade) */
 .carrito-scroll-wrapper::before,
 .carrito-scroll-wrapper::after {
     content: "";
@@ -213,6 +232,7 @@ body {
     z-index: 5;
 }
 
+/* Sombra arriba */
 .carrito-scroll-wrapper::before {
     top: 0;
     background: linear-gradient(
@@ -222,6 +242,7 @@ body {
     );
 }
 
+/* Sombra abajo */
 .carrito-scroll-wrapper::after {
     bottom: 0;
     background: linear-gradient(
@@ -231,14 +252,17 @@ body {
     );
 }
 
+/* Mostrar fade superior */
 .carrito-scroll-wrapper.show-top::before {
     opacity: 1;
 }
 
+/* Mostrar fade inferior */
 .carrito-scroll-wrapper.show-bottom::after {
     opacity: 1;
 }
 
+/* Cada producto dentro del carrito */
 .carrito-item {
     display: flex;
     align-items: flex-start;
@@ -250,6 +274,7 @@ body {
     margin-bottom: 16px;
 }
 
+/* Ajustes para evitar espacios extra */
 .carrito-item:first-child {
     margin-top: 0;
 }
@@ -258,6 +283,7 @@ body {
     margin-bottom: 0;
 }
 
+/* Imagen del producto */
 .item-foto img {
     width: 70px;
     height: 70px;
@@ -265,26 +291,31 @@ body {
     border-radius: 12px;
 }
 
+/* Información del producto */
 .item-info {
     display: flex;
     flex-direction: column;
 }
 
+/* Nombre del producto */
 .item-nombre {
     font-weight: bold;
     font-size: 20px;
 }
 
+/* Cantidad */
 .item-cantidad {
     font-size: 16px;
     color: #555;
 }
 
+/* Precio */
 .item-precio {
     font-size: 16px;
     color: #000;
 }
 
+/* Caja de resumen */
 .resumen-box {
     background-color: #f5f5f5;
     padding: 1em;
@@ -293,11 +324,13 @@ body {
     margin-top: 16px;
 }
 
+/* Línea de resumen */
 .resumen-fila {
     font-size: 20px;
     margin-bottom: 4px;
 }
 
+/* Total con separación */
 .resumen-fila-total {
     font-size: 20px;
     border-top: 2px solid #ccc;
@@ -305,6 +338,7 @@ body {
     padding-top: 4px;
 }
 
+/* Contenedor de botones */
 .pago-botones {
     display: flex;
     justify-content: space-between;
@@ -312,6 +346,7 @@ body {
     margin-top: 20px;
 }
 
+/* Estilo general de botones */
 .btn-regresar,
 .btn-comprar {
     display: flex;
@@ -323,30 +358,32 @@ body {
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
+/* Efecto hover de botones */
 .btn-regresar:hover,
 .btn-comprar:hover {
     transform: translateY(-4px);
     box-shadow: 0 12px 22px #00000044;
 }
 
+/* Hover específico regresar */
 .btn-regresar:hover {
     background-color: #cf5957;
 }
 
+/* Hover específico comprar */
 .btn-comprar:hover {
     background-color: #2d5342;
 }
 
+/* Quita estilos por defecto de botones */
 button {
     appearance: none;
     border: none;
     font: inherit;
 }
 
+/* Botón regresar */
 .btn-regresar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background-color: #EF6F6C;
     color: #fff;
     font-weight: bold;
@@ -356,10 +393,8 @@ button {
     width: 200px;
 }
 
+/* Botón comprar */
 .btn-comprar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background-color: #496B5B;
     color: #fff;
     font-weight: bold;

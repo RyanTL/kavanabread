@@ -1,7 +1,9 @@
+/* Define fondo blanco para toda la página */
 body {
     background-color: #fff;
 }
 
+/* Contenedor principal (caja verde con degradado) */
 .mainContainer {
     background: linear-gradient(
         135deg,
@@ -23,11 +25,13 @@ body {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Efecto hover: eleva la caja */
 .mainContainer:hover {
     transform: translateY(-5px);
     box-shadow: 0 16px 32px rgba(0,0,0,0.2);
 }
 
+/* Contenido textual dentro del contenedor */
 .mainContent {
     font-size: 24px;
     color: #fff;
@@ -37,6 +41,7 @@ body {
     animation-delay: 0.3s;
 }
 
+/* Animación: aparece y sube suavemente */
 @keyframes fadeUp {
     to {
         opacity: 1;

@@ -1,4 +1,5 @@
 <?php
+// Verifica si la sesión ya está iniciada; si no, la inicia //
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
@@ -17,10 +18,12 @@ if (session_status() == PHP_SESSION_NONE) {
 
 <body>
     <?php
+    // Inserta la barra de navegación reutilizable //
         include "navbar.php";
     ?>
 
     <?php
+    // Carga contenido de ayuda contextual (tooltip o guía) //
         $helpFile = "help-content/menu.html";
         include "help.php";
     ?>
@@ -111,17 +114,33 @@ if (session_status() == PHP_SESSION_NONE) {
 
     -->
 
+    <!-- Sección principal de productos -->
     <section class="products-section">
+
+        <!-- Título de la primera categoría -->
         <h2 class="section-title">Panes más comprados</h2>
+
+        <!-- Grid de productos -->
         <div class="products-grid">
 
+            <!-- Tarjeta de producto individual -->
             <div class="product-card">
+
+                <!-- Imagen del producto -->
                 <img src="images/pan_blanco.jpeg" alt="Pan Campesino">
 
                 <div class="product-info">
+
+                    <!-- Nombre del producto -->
                     <h3>Pan Blanco</h3>
+
+                    <!-- Footer de la tarjeta -->
                     <div class="product-footer">
+
+                        <!-- Botón que redirige a la sección -->
                         <a href="seccionpanes.php" class="add-cart-btn">
+
+                            <!-- Icono carrito -->
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round">
@@ -135,6 +154,7 @@ if (session_status() == PHP_SESSION_NONE) {
                         </a>
                     </div>
                 </div>
+                <!-- (Se repite la misma estructura para cada producto) -->
             </div>
 
             <div class="product-card">
@@ -183,9 +203,11 @@ if (session_status() == PHP_SESSION_NONE) {
 
         </div>
 
+        <!-- Sección Artesanal -->
         <h2 class="section-title">Artesanales favoritos</h2>
         <div class="products-grid">
 
+            <!-- Tarjetas de productos artesanales -->
             <div class="product-card">
                 <img src="images/mantequilla_de_cilantro.jpeg" alt="Pan Campesino">
 
@@ -254,9 +276,11 @@ if (session_status() == PHP_SESSION_NONE) {
 
         </div>
 
+        <!-- Sección Otros -->
         <h2 class="section-title">Otros</h2>
         <div class="products-grid">
 
+            <!-- Tarjetas de productos adicionales -->
             <div class="product-card">
                 <img src="images/nueces_y_almendras.jpeg" alt="Pan Campesino">
 
@@ -326,9 +350,14 @@ if (session_status() == PHP_SESSION_NONE) {
         </div>
     </section>
 
+    <!-- Modal de confirmación para cerrar sesión -->
     <div id = "confirmModal" class = "modal">
         <div class = "modal-box">
+
+            <!-- Mensaje del modal -->
             <p class = "modal-text">¿Estás seguro de que deseas salir?</p>
+
+            <!-- Botones del modal -->
             <div class = "modal-buttons">
                 <button id = "confirmExit">Sí</button>
                 <button id = "cancelExit">Cancelar</button>
@@ -337,6 +366,7 @@ if (session_status() == PHP_SESSION_NONE) {
     </div>
 
     <script>
+        // Referencias a elementos del DOM //
         const userIconBtn = document.getElementById("userIconBtn");
         const userContent = document.getElementById("userContent");
 
@@ -345,24 +375,29 @@ if (session_status() == PHP_SESSION_NONE) {
         const confirmExit = document.getElementById("confirmExit");
         const cancelExit = document.getElementById("cancelExit");
 
+        // Mostrar / ocultar menú de usuario //
         userIconBtn.addEventListener("click", (e) => {
             e.preventDefault();
             userContent.classList.toggle("show");
         });
 
+        // Mostrar el modal al intentar salir //
         exitButton.addEventListener("click", function (e) {
             e.preventDefault();
             modal.style.display = "flex";
         });
 
+        // Cancelar salida (cerrar modal) //
         cancelExit.addEventListener("click", function () {
             modal.style.display = "none";
         });
 
+        // Confirmar salida (redirige al index) //
         confirmExit.addEventListener("click", function () {
             window.location.href = "index.php";
         });
 
+        // Cerrar menú usuario si se hace clic fuera //
         document.addEventListener("click", (e) => {
             if (!e.target.closest(".userContainer")) {
                 userContent.classList.remove("show");
