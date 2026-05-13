@@ -5,13 +5,19 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
+// Si el usuario no está logueado, lo manda al login
+if (!isset($_SESSION['id'])) {
+    header("Location: iniciar-sesion.php");
+    exit();
+}
+
 // Conectar a la base de datos
 include("config/db.php");
 
 $mensaje = "";
 $tipo_mensaje = "";
 
-// Obtener los productos del carrito (igual que cart.php)
+// Obtener los productos del carrito
 $cart_items = $_SESSION['cart_items'] ?? [];
 
 // Si el carrito está vacío, regresar al carrito
@@ -20,7 +26,7 @@ if (empty($cart_items)) {
     exit();
 }
 
-// Calcular subtotal, tax y total desde los items del carrito
+// Calcular subtotal, tax y total
 $subtotal = 0;
 $shipping_total = 0;
 foreach ($cart_items as $item) {
@@ -36,32 +42,24 @@ function crearOrdenDemo($conn, $user_id, $metodo, $subtotal, $tax, $total, $cart
     try {
         $estado = "Completada";
         $stmt = $conn->prepare("INSERT INTO orders (user_id, payment_method, subtotal, tax, total, status) VALUES (?, ?, ?, ?, ?, ?)");
-        if (!$stmt) {
-            throw new Exception("No se pudo preparar la orden.");
-        }
+        if (!$stmt) throw new Exception("No se pudo preparar la orden.");
         $stmt->bind_param("isddds", $user_id, $metodo, $subtotal, $tax, $total, $estado);
-        if (!$stmt->execute()) {
-            throw new Exception("No se pudo crear la orden.");
-        }
+        if (!$stmt->execute()) throw new Exception("No se pudo crear la orden.");
         $order_id = $conn->insert_id;
 
         $stmt_item = $conn->prepare("INSERT INTO order_items (order_id, product_name, product_size, quantity, unit_price, shipping, line_total) VALUES (?, ?, ?, ?, ?, ?, ?)");
-        if (!$stmt_item) {
-            throw new Exception("No se pudieron preparar los productos de la orden.");
-        }
+        if (!$stmt_item) throw new Exception("No se pudieron preparar los productos de la orden.");
 
         foreach ($cart_items as $item) {
             $product_name = $item['nombre'];
             $product_size = $item['tamano'] ?? null;
-            $quantity = (int) $item['cantidad'];
-            $unit_price = (float) $item['precio'];
-            $shipping = (float) ($item['envio'] ?? 0);
-            $line_total = ($unit_price * $quantity) + $shipping;
+            $quantity     = (int) $item['cantidad'];
+            $unit_price   = (float) $item['precio'];
+            $shipping     = (float) ($item['envio'] ?? 0);
+            $line_total   = ($unit_price * $quantity) + $shipping;
 
             $stmt_item->bind_param("issiddd", $order_id, $product_name, $product_size, $quantity, $unit_price, $shipping, $line_total);
-            if (!$stmt_item->execute()) {
-                throw new Exception("No se pudo guardar un producto de la orden.");
-            }
+            if (!$stmt_item->execute()) throw new Exception("No se pudo guardar un producto de la orden.");
         }
 
         $conn->commit();
@@ -95,11 +93,10 @@ if (isset($_POST['btn-comprar'])) {
         if (empty($errores)) {
             try {
                 $order_id = crearOrdenDemo($conn, (int) $_SESSION['id'], $metodo, $subtotal, $tax, $total, $cart_items);
-                // Vaciar el carrito después de compra exitosa
                 $_SESSION['cart_items'] = [];
                 $mensaje = "¡Compra realizada con éxito! Tu número de orden es #" . $order_id . ".";
                 $tipo_mensaje = "exito";
-                $cart_items = []; // Limpiar para que no muestre productos después
+                $cart_items = [];
             } catch (Exception $e) {
                 $mensaje = "No se pudo guardar la orden. Inténtalo de nuevo.";
                 $tipo_mensaje = "error";
@@ -112,7 +109,6 @@ if (isset($_POST['btn-comprar'])) {
     } elseif ($metodo === 'paypal' || $metodo === 'googlepay') {
         try {
             $order_id = crearOrdenDemo($conn, (int) $_SESSION['id'], $metodo, $subtotal, $tax, $total, $cart_items);
-            // Demo: aquí iría la redirección real a PayPal / Google Pay.
             $_SESSION['cart_items'] = [];
             $mensaje = "¡Compra realizada con éxito! Tu número de orden es #" . $order_id . ".";
             $tipo_mensaje = "exito";
@@ -129,83 +125,55 @@ if (isset($_POST['btn-comprar'])) {
 
 $metodo_seleccionado = $_POST['metodo_pago'] ?? '';
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src = "https://kit.fontawesome.com/bde2b79879.js" crossorigin = "anonymous"></script>
     <title>Forma de Pago – Kavana Bread</title>
-    <link rel = "stylesheet" href = "styles/forma-de-pago.css">
-    <link rel="stylesheet" href="assets/css/navbar.css"/>
-    <script>
-        paypal.Buttons({
-            style: {
-                layout: 'vertical',
-                color: 'gold',
-                shape: 'rect',
-                label: 'paypal'
-            },
-
-            createOrder: function(data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            value: '<?= number_format($total, 2) ?>'
-                        }
-                    }]
-                });
-            },
-
-            onApprove: function(data, actions) {
-                return actions.order.capture().then(function(details) {
-                    alert('Pago completado por ' + details.payer.name.given_name);
-                });
-            }
-
-        }).render('#paypal-button-container');
-    </script>
+    <script src="https://kit.fontawesome.com/bde2b79879.js" crossorigin="anonymous"></script>
     
+    <script src="https://www.paypal.com/sdk/js?client-id=TU_CLIENT_ID&currency=USD"></script>
+    <link rel="stylesheet" href="styles/forma-de-pago.css">
+    <link rel="stylesheet" href="assets/css/navbar.css"/>
 </head>
 <body>
 
-    <!-- Navbar del proyecto -->
     <?php include 'navbar.php'; ?>
 
     <?php
         $helpFile = "help-content/pago.html";
         include "help.php";
     ?>
- 
+
     <main class="checkout-container">
         <h1 class="title">Seleccionar Forma de Pago</h1>
         <div class="content">
+
             <div class="left">
-                
+
                 <?php if (!empty($mensaje)): ?>
                     <div class="msg <?= $tipo_mensaje ?>"><?= $mensaje ?></div>
                 <?php endif; ?>
-        
+
                 <?php if ($tipo_mensaje !== 'exito'): ?>
 
+                
                 <form action="forma-de-pago.php" method="POST">
                     <div class="pago-grid">
-        
-                        <!-- Métodos de pago -->
                         <div class="metodos">
-        
+
                             <!-- PayPal -->
                             <label class="metodo-opcion">
                                 <input type="radio" name="metodo_pago" value="paypal"
                                     <?= $metodo_seleccionado === 'paypal' ? 'checked' : '' ?>>
-                                    PayPal
+                                PayPal
                                 <div class="metodo-contenido">
-                                    <button class="paypal-demo-btn">
+                                    <button class="paypal-demo-btn" type="button">
                                         <img src="https://www.paypalobjects.com/webstatic/icon/pp258.png" alt="PayPal">
                                         <span>Pagar con PayPal</span>
                                     </button>
-                                    <p style="font-size: 12px; color: gray; text-align: center; margin-top: 4px;">
+                                    <p style="font-size:12px; color:gray; text-align:center; margin-top:4px;">
                                         Serás redirigido a PayPal para completar tu pago.
                                     </p>
                                 </div>
@@ -215,9 +183,7 @@ $metodo_seleccionado = $_POST['metodo_pago'] ?? '';
                             <label class="metodo-opcion">
                                 <input type="radio" name="metodo_pago" value="tarjeta"
                                     <?= $metodo_seleccionado === 'tarjeta' ? 'checked' : '' ?>>
-                                    Targeta de Crédito/Débito
-
-                                <!-- Formulario de tarjeta -->
+                                Targeta de Crédito/Débito
                                 <div class="metodo-contenido">
                                     <div class="form-column-targeta">
                                         <label class="form-targeta-title">Número de Targeta</label>
@@ -250,24 +216,37 @@ $metodo_seleccionado = $_POST['metodo_pago'] ?? '';
                             <label class="metodo-opcion">
                                 <input type="radio" name="metodo_pago" value="googlepay"
                                     <?= $metodo_seleccionado === 'googlepay' ? 'checked' : '' ?>>
-                                    Google Pay
+                                Google Pay
                                 <div class="metodo-contenido">
-                                    <button class="google-pay-btn">
+                                    <button class="google-pay-btn" type="button">
                                         <img src="images/googlepay.png" alt="Google Pay">
                                         <span>Pagar con Google Pay</span>
                                     </button>
                                 </div>
                             </label>
+
                         </div>
                     </div>
+
+                    
+                    <div class="pago-botones">
+                        <a href="cart.php" class="btn-regresar">Regresar</a>
+                        <button type="submit" name="btn-comprar" class="btn-comprar">Comprar</button>
+                    </div>
+
                 </form>
+
+                <?php else: ?>
+                    <div class="pago-botones">
+                        <a href="index.php" class="btn-comprar">Volver al inicio</a>
+                    </div>
+                <?php endif; ?>
+
             </div>
 
-            <div class="right">
             <!-- Carrito y resumen -->
+            <div class="right">
                 <div class="carrito-col">
-
-                    <!-- Tu Carrito — viene de $_SESSION['cart_items'] igual que cart.php -->
                     <div class="carrito-box">
                         <h2>Tu Carrito (<?= count($cart_items) ?>)</h2>
                         <div class="carrito-scroll-wrapper">
@@ -275,10 +254,10 @@ $metodo_seleccionado = $_POST['metodo_pago'] ?? '';
                                 <?php foreach ($cart_items as $item): ?>
                                     <div class="carrito-item">
                                         <div class="item-foto">
-                                            <img src="<?= htmlspecialchars($item['imagen']) ?>"
+                                            <img src="<?= htmlspecialchars($item['imagen'] ?? '') ?>"
                                                 alt="<?= htmlspecialchars($item['nombre']) ?>"
                                                 onerror="this.onerror=null; this.src='images/default.png';">
-                                        </div>                                   
+                                        </div>
                                         <div class="item-info">
                                             <div class="item-nombre"><?= htmlspecialchars($item['nombre']) ?></div>
                                             <div class="item-cantidad">x<?= (int)$item['cantidad'] ?></div>
@@ -290,7 +269,6 @@ $metodo_seleccionado = $_POST['metodo_pago'] ?? '';
                         </div>
                     </div>
 
-                    <!-- Resumen de Orden -->
                     <div class="resumen-box">
                         <h2>Resumen de Orden</h2>
                         <div class="resumen-fila">
@@ -311,55 +289,19 @@ $metodo_seleccionado = $_POST['metodo_pago'] ?? '';
                         </div>
                     </div>
                 </div>
-            </div> 
-        </div>
+            </div>
 
-            <!-- Botones -->
-            <div class="pago-botones">
-                <a href="cart.php" class="btn-regresar">Regresar</a>
-                <button type="submit" name="btn-comprar" class="btn-comprar">Comprar</button>
-            </div>
- 
-        </form>
-        <?php else: ?>
-            <!-- Botón después de compra exitosa -->
-            <div class="pago-botones">
-                <a href="index.php" class="btn-comprar">Volver al inicio</a>
-            </div>
-        <?php endif; ?>
- 
+        </div>
     </main>
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const radios = document.querySelectorAll('input[name="metodo_pago"]');
-            const tarjetaForm = document.querySelector('.form-tarjeta');
-
-            function updateUI() {
-                const selected = document.querySelector('input[name="metodo_pago"]:checked');
-                const tarjetaForm = document.querySelector('.form-tarjeta');
-
-                tarjetaForm.classList.remove("active");
-
-                if (selected && selected.value === "tarjeta") {
-                    tarjetaForm.classList.add("active");
-                }
-            }
-
-            radios.forEach(radio => {
-                radio.addEventListener("change", updateUI);
-            });
-
-            updateUI();
-        });
-
+        // Mostrar/ocultar contenido del método seleccionado
         document.addEventListener("DOMContentLoaded", () => {
             const opciones = document.querySelectorAll('.metodo-opcion');
 
             function updateUI() {
                 opciones.forEach(opcion => {
                     const radio = opcion.querySelector('input[type="radio"]');
-
                     if (radio.checked) {
                         opcion.classList.add('active');
                     } else {
@@ -375,48 +317,43 @@ $metodo_seleccionado = $_POST['metodo_pago'] ?? '';
             updateUI();
         });
 
-        document.querySelectorAll('input[name="metodo_pago"]').forEach(radio => {
-            radio.addEventListener('click', function () {
-                if (this.wasChecked) {
-                    this.checked = false;
-                }
-
-                document.querySelectorAll('input[name="metodo_pago"]').forEach(r => {
-                    r.wasChecked = false;
-                });
-
-                this.wasChecked = this.checked;
-
-                document.querySelectorAll('.metodo-opcion').forEach(opcion => {
-                    opcion.classList.remove('active');
-                });
-            });
-        });
-
+        // Fade scroll del carrito
         document.addEventListener("DOMContentLoaded", () => {
             const scrollBox = document.querySelector(".carrito-items-scroll");
-            const wrapper = document.querySelector(".carrito-scroll-wrapper");
+            const wrapper   = document.querySelector(".carrito-scroll-wrapper");
+            if (!scrollBox || !wrapper) return;
 
             function updateFade() {
-                const scrollTop = scrollBox.scrollTop;
+                const scrollTop    = scrollBox.scrollTop;
                 const scrollHeight = scrollBox.scrollHeight;
                 const clientHeight = scrollBox.clientHeight;
 
-                if (scrollTop > 5) {
-                    wrapper.classList.add("show-top");
-                } else {
-                    wrapper.classList.remove("show-top");
-                }
-
-                if (scrollTop + clientHeight < scrollHeight - 5) {
-                    wrapper.classList.add("show-bottom");
-                } else {
-                    wrapper.classList.remove("show-bottom");
-                }
+                wrapper.classList.toggle("show-top",    scrollTop > 5);
+                wrapper.classList.toggle("show-bottom", scrollTop + clientHeight < scrollHeight - 5);
             }
 
             scrollBox.addEventListener("scroll", updateFade);
             updateFade();
+        });
+
+        // PayPal Buttons
+        
+        document.addEventListener("DOMContentLoaded", () => {
+            if (typeof paypal !== 'undefined') {
+                paypal.Buttons({
+                    style: { layout: 'vertical', color: 'gold', shape: 'rect', label: 'paypal' },
+                    createOrder: function(data, actions) {
+                        return actions.order.create({
+                            purchase_units: [{ amount: { value: '<?= number_format($total, 2) ?>' } }]
+                        });
+                    },
+                    onApprove: function(data, actions) {
+                        return actions.order.capture().then(function(details) {
+                            alert('Pago completado por ' + details.payer.name.given_name);
+                        });
+                    }
+                }).render('#paypal-button-container');
+            }
         });
     </script>
 
